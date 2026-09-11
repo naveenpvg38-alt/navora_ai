@@ -12,10 +12,12 @@ import {
   Flame,
   Zap,
   Shield,
-  Dices
+  Dices,
+  ChevronRight,
+  Navigation,
+  Check
 } from 'lucide-react';
 import VibeRouletteModal from './VibeRouletteModal';
-
 
 const DISCOVER_ITEMS = [
   { emoji: '⛰️', text: 'Devarayanadurga Peak Sunrise (1,204m)' },
@@ -30,8 +32,185 @@ const DISCOVER_ITEMS = [
   { emoji: '✨', text: 'Goravanahalli Mahalakshmi Shrine' },
 ];
 
+const SIMULATED_VIBES = [
+  {
+    id: 'monolith-trek',
+    tag: 'WEEKEND PEAK TREK',
+    title: 'Madhugiri Dawn Monolith & Hot Thatte Idlis',
+    icon: '🌄',
+    badge: 'Adventure · 5.5 Hrs',
+    matchScore: '99.4%',
+    duration: '5.5 Hours',
+    budget: '₹180 / person',
+    transport: 'Two-Wheeler · 42 km',
+    energy: 'High Energy',
+    preset: {
+      mood: 'Adventurous',
+      interests: ['Scenic Outdoors', 'Cafes & Dining'],
+      location: 'Madhugiri Fort',
+      budget: 300,
+      transport: 'bike',
+      time: '06:00 AM'
+    },
+    stops: [
+      {
+        time: '06:30 AM',
+        title: 'Madhugiri Monolith Base',
+        activity: 'Sunrise ascent along Asia’s 2nd largest monolithic granite fortress',
+        cost: 'Free Entry',
+        category: 'Peak Trek'
+      },
+      {
+        time: '09:15 AM',
+        title: 'Kyathsandra Thatte Idli Corridor',
+        activity: 'Steaming butter-soft thatte idlis with red chutney & filter coffee',
+        cost: '₹80',
+        category: 'Food Trail'
+      },
+      {
+        time: '11:00 AM',
+        title: 'Channarayana Durga Bastion',
+        activity: 'Explore hidden stone gateways and untouched panoramic hill ridges',
+        cost: 'Free Entry',
+        category: 'Historic Fortress'
+      }
+    ]
+  },
+  {
+    id: 'heritage-foodie',
+    tag: 'TASTE & CULTURE',
+    title: 'Kyathsandra Breakfast Trail & Sacred Shrines',
+    icon: '🧈',
+    badge: 'Foodie · 4.0 Hrs',
+    matchScore: '98.8%',
+    duration: '4.0 Hours',
+    budget: '₹220 / person',
+    transport: 'Car / Transit · 24 km',
+    energy: 'Relaxed & Savoring',
+    preset: {
+      mood: 'Foodie',
+      interests: ['Cafes & Dining', 'Heritage & Sightseeing'],
+      location: 'Kyathsandra',
+      budget: 500,
+      transport: 'car',
+      time: '08:30 AM'
+    },
+    stops: [
+      {
+        time: '08:30 AM',
+        title: 'Sri Ravi Hotel, Kyathsandra',
+        activity: 'Iconic hot thatte idlis soaked in spiced butter & crisp uddin vada',
+        cost: '₹95',
+        category: 'Iconic Breakfast'
+      },
+      {
+        time: '10:15 AM',
+        title: 'Siddaganga Hill & Bell Shrine',
+        activity: 'Historic hillside promenade, panoramic Tumkur viewpoint & peaceful walk',
+        cost: 'Free Entry',
+        category: 'Heritage Sight'
+      },
+      {
+        time: '11:45 AM',
+        title: 'Town Market Sweets & Filter Kaapi',
+        activity: 'Freshly roasted coffee and local Tumkur jaggery sweets at Gandhi Circle',
+        cost: '₹75',
+        category: 'Local Treats'
+      }
+    ]
+  },
+  {
+    id: 'forest-springs',
+    tag: 'NATURE RETREAT',
+    title: 'Namada Chilume Forest Spring & DD Hills Mist',
+    icon: '🌿',
+    badge: 'Relaxed · 4.5 Hrs',
+    matchScore: '99.1%',
+    duration: '4.5 Hours',
+    budget: '₹90 / person',
+    transport: 'Scenic Drive · 32 km',
+    energy: 'Mindful Serenity',
+    preset: {
+      mood: 'Relaxed',
+      interests: ['Hidden Gems', 'Lake Walks'],
+      location: 'Devarayanadurga',
+      budget: 200,
+      transport: 'bike',
+      time: '07:00 AM'
+    },
+    stops: [
+      {
+        time: '07:30 AM',
+        title: 'Namada Chilume Spring',
+        activity: 'Perennial natural rock spring canopy and peaceful spotted deer sanctuary',
+        cost: '₹20 Entry',
+        category: 'Forest Oasis'
+      },
+      {
+        time: '09:30 AM',
+        title: 'DD Hills Yoga Narasimha Summit',
+        activity: 'Cool hilltop breeze at 1,204m with 360-degree misty valley views',
+        cost: 'Free Entry',
+        category: 'Misty Summit'
+      },
+      {
+        time: '11:15 AM',
+        title: 'Kalyani Lake Garden Pavilions',
+        activity: 'Ancient stone stepped tank surrounded by peaceful evergreen trees',
+        cost: 'Free Entry',
+        category: 'Historic Lake'
+      }
+    ]
+  },
+  {
+    id: 'sunset-lake',
+    tag: 'GOLDEN HOUR',
+    title: 'Amanikere Lake Promenade & Twilight Cafes',
+    icon: '🌅',
+    badge: 'Chill · 3.0 Hrs',
+    matchScore: '98.5%',
+    duration: '3.0 Hours',
+    budget: '₹140 / person',
+    transport: 'City Mobility · 12 km',
+    energy: 'Evening Breeze',
+    preset: {
+      mood: 'Chill',
+      interests: ['Lake Walks', 'Art & Culture'],
+      location: 'Amanikere',
+      budget: 350,
+      transport: 'bike',
+      time: '04:30 PM'
+    },
+    stops: [
+      {
+        time: '04:45 PM',
+        title: 'Amanikere Glass Boardwalk',
+        activity: 'Lakeside garden walk, floating fountains and tranquil lotus wetland',
+        cost: '₹10 Entry',
+        category: 'Waterfront Promenade'
+      },
+      {
+        time: '06:00 PM',
+        title: 'Sunset Island Gazebo',
+        activity: 'Watch the sun dip behind the distant monolithic Tumkur hills over water',
+        cost: 'Free',
+        category: 'Golden Hour'
+      },
+      {
+        time: '07:15 PM',
+        title: 'Lakeside Twilight Street Cafes',
+        activity: 'Steaming ginger tea, spiced sweet corn, and live outdoor music ambience',
+        cost: '₹130',
+        category: 'Twilight Bites'
+      }
+    ]
+  }
+];
+
 export default function Home({ user, onGetStarted, onStartPlanning, onQuickTemplate }) {
   const [showRoulette, setShowRoulette] = useState(false);
+  const [simVibeId, setSimVibeId] = useState('monolith-trek');
+  const currentSim = SIMULATED_VIBES.find((v) => v.id === simVibeId) || SIMULATED_VIBES[0];
   const [discIdx, setDiscIdx] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -295,43 +474,157 @@ export default function Home({ user, onGetStarted, onStartPlanning, onQuickTempl
 
       <div className="divider-gradient mx-auto max-w-5xl" />
 
-      {/* ── READY TO EXPLORE CTA ──────────────────────── */}
-      <section className="py-20 px-5 sm:px-8 max-w-5xl mx-auto">
+      {/* ── 1-TAP VIBE ROUTE SIMULATOR ────────────────── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto">
         <div
-          className="relative rounded-3xl p-8 sm:p-14 text-center overflow-hidden scroll-load-reveal bg-white dark:bg-gradient-to-br dark:from-[#0D1224]/95 dark:to-[#151D30]/90 border border-slate-200 dark:border-cyan-500/25 shadow-xl dark:shadow-[0_20px_50px_rgba(0,0,0,0.5),0_0_35px_rgba(34,211,238,0.08)_inset] transition-all"
+          className="relative rounded-[28px] sm:rounded-3xl p-6 sm:p-10 lg:p-12 overflow-hidden scroll-load-reveal bg-white dark:bg-gradient-to-br dark:from-[#09101f]/95 dark:via-[#0D1424]/95 dark:to-[#080d1a]/95 border border-slate-200 dark:border-cyan-500/25 shadow-xl dark:shadow-[0_25px_70px_rgba(0,0,0,0.65),0_0_35px_rgba(34,211,238,0.08)_inset] transition-all"
         >
-          {/* Ambient decorative glow */}
-          <div className="absolute -top-24 -right-24 w-60 h-60 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-60 h-60 bg-violet-600/10 dark:bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
+          {/* Luminous top scanline */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#22d3ee]" />
 
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="label-overline text-cyan-600 dark:text-cyan-400 mb-2 block">Tumkur Outing Intelligence</span>
-            <h3 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-              Ready to Discover Tumkur with AI?
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
-              {user
-                ? 'Your personalized outing workspace is ready. Hop directly into the planner to discover fresh scenic trails and iconic eats.'
-                : 'Craft your perfect day in seconds — generate intelligent, zero-backtracking routes tailored exclusively for Tumkur.'}
+          {/* Ambient decorative glow orbs */}
+          <div className="absolute -top-28 -right-28 w-72 h-72 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" />
+          <div className="absolute -bottom-28 -left-28 w-72 h-72 bg-indigo-600/10 dark:bg-indigo-600/15 rounded-full blur-[90px] pointer-events-none" />
+
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-300 font-mono text-[10px] sm:text-[11px] tracking-widest uppercase mb-3.5 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+              <span>LIVE ROUTE SIMULATOR // 0-BACKTRACKING ENGINE</span>
+            </div>
+
+            <h2 className="font-clash text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-3">
+              Simulate Your <span className="text-gradient-cyan">Tumkur Day-Route</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+              Tap any archetype below to preview an instant AI-synthesized day route with real waypoints, timings, and fuel-saving transit links.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          </div>
+
+          {/* Vibe Selection Tabs */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 mb-8 relative z-10">
+            {SIMULATED_VIBES.map((v) => {
+              const active = v.id === simVibeId;
+              return (
+                <button
+                  key={v.id}
+                  type="button"
+                  onClick={() => setSimVibeId(v.id)}
+                  className={`relative p-3.5 sm:p-4 rounded-2xl border text-left cursor-pointer transition-all duration-200 select-none overflow-hidden group ${
+                    active
+                      ? 'border-cyan-400 dark:border-cyan-400 bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0E1C33] dark:to-[#081122] shadow-[0_0_20px_rgba(34,211,238,0.22)] scale-[1.02]'
+                      : 'border-slate-200 dark:border-white/8 bg-slate-50/80 dark:bg-white/[0.025] hover:border-cyan-400/40 dark:hover:border-cyan-400/40 hover:bg-slate-100 dark:hover:bg-white/[0.05]'
+                  }`}
+                >
+                  {/* Status dot on active */}
+                  {active && (
+                    <div className="absolute top-2.5 right-2.5 flex items-center justify-center">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping opacity-75" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-xl sm:text-2xl drop-shadow-sm group-hover:scale-110 transition-transform">
+                      {v.icon}
+                    </span>
+                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold ${
+                      active ? 'text-cyan-600 dark:text-cyan-300' : 'text-slate-400 dark:text-slate-500'
+                    }`}>
+                      {v.tag}
+                    </span>
+                  </div>
+
+                  <h4 className={`text-xs sm:text-sm font-bold tracking-tight line-clamp-1 mb-1 transition-colors ${
+                    active ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white'
+                  }`}>
+                    {v.title}
+                  </h4>
+
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    <span>{v.badge}</span>
+                    <span className={active ? 'text-emerald-600 dark:text-emerald-400 font-bold' : ''}>{v.budget}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Simulation Preview Box */}
+          <div className="rounded-2xl p-5 sm:p-7 bg-slate-50/90 dark:bg-[#070B16]/90 border border-slate-200 dark:border-cyan-500/20 shadow-inner relative z-10 mb-6">
+            {/* Top Telemetry Row */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-slate-200 dark:border-white/8">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="font-spaceMono text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider">
+                  {currentSim.title}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono">
+                <span className="px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/25 text-cyan-700 dark:text-cyan-300 flex items-center gap-1.5 font-bold">
+                  <Sparkles className="w-3 h-3" />
+                  {currentSim.matchScore} ROUTE MATCH
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-slate-200/70 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-600 dark:text-slate-300">
+                  ⚡ {currentSim.transport}
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-700 dark:text-emerald-300 font-bold">
+                  💰 {currentSim.budget}
+                </span>
+              </div>
+            </div>
+
+            {/* Waypoints Flow */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 relative">
+              {currentSim.stops.map((st, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl bg-white dark:bg-[#0D1424] border border-slate-200 dark:border-white/6 hover:border-cyan-400/40 transition-all flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 border border-cyan-500/20">
+                        STOP 0{idx + 1} · {st.time}
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+                        {st.cost}
+                      </span>
+                    </div>
+
+                    <h5 className="font-semibold text-sm text-slate-900 dark:text-white mb-1 tracking-tight group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                      {st.title}
+                    </h5>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-light mb-3">
+                      {st.activity}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                    <span>{st.category}</span>
+                    <span className="text-cyan-500/80 dark:text-cyan-400/80">Waypoint ✓</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Launch Bar */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10 pt-2">
+            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono text-center sm:text-left">
+              <Compass className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span>Calibrated for zero-backtracking with Tumkur local topography.</span>
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
-                onClick={onGetStarted || onStartPlanning}
-                className="btn-primary text-[15px] !py-3.5 !px-8 !rounded-2xl cursor-pointer group shadow-glow-sm hover:shadow-glow-md transition-all"
+                type="button"
+                onClick={() => onQuickTemplate ? onQuickTemplate(currentSim.preset) : (onStartPlanning && onStartPlanning())}
+                className="btn-primary w-full sm:w-auto text-xs sm:text-sm !py-3.5 !px-6 !rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] flex items-center justify-center gap-2"
               >
-                {user ? (
-                  <>
-                    <Compass className="w-4.5 h-4.5 text-cyan-300 group-hover:rotate-45 transition-transform duration-300" />
-                    <span>Explore Tumkur Now</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </>
-                ) : (
-                  <>
-                    <Compass className="w-4.5 h-4.5 text-cyan-300 group-hover:rotate-45 transition-transform duration-300" />
-                    <span>Start Exploring</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
+                <Sparkles className="w-4 h-4 text-cyan-200 group-hover:rotate-12 transition-transform" />
+                <span>Launch This Route in Planner</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
