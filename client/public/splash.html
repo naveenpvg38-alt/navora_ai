@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAVORA AI · Splash Screen</title>
+  
+  <!-- Modern Rounded Geometric Typography: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── DESIGN SYSTEM VARIABLES ────────────────────────────────────────── */
+    :root {
+      --bg-canvas: #FBF8F3;
+      --bg-subtle: #F3ECE2;
+      --text-main: #1C1917;
+      --text-muted: #78716C;
+      --text-dim: #A8A29E;
+      --coral: #FF5A5F;
+      --amber: #F59E0B;
+      --gold: #EAB308;
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-border: rgba(120, 113, 108, 0.14);
+      --topo-stroke: rgba(180, 160, 140, 0.12);
+      --path-stroke: rgba(245, 158, 11, 0.35);
+      --route-active: #FF5A5F;
+      --glow: rgba(245, 158, 11, 0.18);
+      --badge-bg: rgba(245, 158, 11, 0.12);
+      --badge-border: rgba(245, 158, 11, 0.3);
+      --badge-text: #D97706;
+    }
+
+    /* Dark Mode Theme overrides */
+    html.dark {
+      --bg-canvas: #131110;
+      --bg-subtle: #1C1917;
+      --text-main: #FAF8F5;
+      --text-muted: #A8A29E;
+      --text-dim: #78716C;
+      --coral: #FF6B6B;
+      --amber: #FBBF24;
+      --gold: #F59E0B;
+      --card-bg: rgba(28, 25, 23, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --topo-stroke: rgba(255, 255, 255, 0.05);
+      --path-stroke: rgba(251, 191, 36, 0.25);
+      --route-active: #FF6B6B;
+      --glow: rgba(255, 107, 107, 0.15);
+      --badge-bg: rgba(251, 191, 36, 0.12);
+      --badge-border: rgba(251, 191, 36, 0.25);
+      --badge-text: #FBBF24;
+    }
+
+    /* ── BASE RESET & CANVAS ────────────────────────────────────────────── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      min-width: 100vw;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      user-select: none;
+    }
+
+    /* ── WARM SUNLIGHT AMBIENT MESH ─────────────────────────────────────── */
+    .ambient-sun {
+      position: absolute;
+      top: -15%;
+      right: -10%;
+      width: 65vw;
+      height: 65vw;
+      max-width: 900px;
+      max-height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 191, 36, 0.18) 0%, rgba(255, 90, 95, 0.08) 45%, transparent 70%);
+      filter: blur(80px);
+      pointer-events-none;
+      z-index: 1;
+      animation: ambientDrift 18s ease-in-out infinite alternate;
+    }
+
+    .ambient-warmth-secondary {
+      position: absolute;
+      bottom: -20%;
+      left: 20%;
+      width: 50vw;
+      height: 50vw;
+      max-width: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 90, 95, 0.1) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 75%);
+      filter: blur(90px);
+      pointer-events-none;
+      z-index: 1;
+    }
+
+    @keyframes ambientDrift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-30px, 20px) scale(1.06); }
+      100% { transform: translate(20px, -25px) scale(0.96); }
+    }
+
+    /* ── VECTOR BACKGROUND: TOPOGRAPHIC & SILHOUETTES ───────────────────── */
+    .travel-motif-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events-none;
+      z-index: 2;
+    }
+
+    .topo-lines {
+      fill: none;
+      stroke: var(--topo-stroke);
+      stroke-width: 1.25;
+      stroke-linecap: round;
+      transition: stroke 0.5s ease;
+    }
+
+    .route-arc {
+      fill: none;
+      stroke: var(--path-stroke);
+      stroke-width: 1.75;
+      stroke-dasharray: 6 8;
+      animation: dashFlight 30s linear infinite;
+    }
+
+    @keyframes dashFlight {
+      to { stroke-dashoffset: -400; }
+    }
+
+    /* ── HEADER TELEMETRY (TOP ASYMMETRIC BAR) ──────────────────────────── */
+    .top-telemetry {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .geo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.04);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--coral);
+      box-shadow: 0 0 8px var(--coral);
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.35); opacity: 1; }
+    }
+
+    .theme-toggle-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-main);
+      box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05);
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.08);
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    /* ── ASYMMETRIC LOWER-THIRD BRAND HERO ──────────────────────────────── */
+    .hero-container {
+      position: relative;
+      z-index: 10;
+      padding: 0 60px 80px 80px;
+      max-width: 1050px;
+      margin-top: auto;
+    }
+
+    /* Sub-badge overline */
+    .overline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    }
+
+    /* Master Brand Headline */
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(3.75rem, 7.5vw, 6.75rem);
+      font-weight: 900;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      color: var(--text-main);
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .gradient-ai {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--amber) 55%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      position: relative;
+      padding-right: 0.05em;
+    }
+
+    /* Tagline */
+    .brand-tagline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.25rem, 2.2vw, 1.85rem);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      color: var(--text-muted);
+      margin-bottom: 38px;
+      line-height: 1.35;
+      opacity: 0;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+    }
+
+    .brand-tagline strong {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* ── ORGANIC ROUTE DRAWING LOADING INDICATOR ────────────────────────── */
+    .loading-block {
+      opacity: 0;
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+      max-width: 580px;
+    }
+
+    .route-meter {
+      position: relative;
+      width: 100%;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    /* Route track SVG */
+    .route-svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .route-bg-line {
+      fill: none;
+      stroke: var(--card-border);
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .route-drawn-line {
+      fill: none;
+      stroke: url(#coral-amber-grad);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 480;
+      stroke-dashoffset: 480;
+      animation: drawRouteLine 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes drawRouteLine {
+      0%   { stroke-dashoffset: 480; opacity: 0; }
+      10%  { opacity: 1; }
+      85%  { stroke-dashoffset: 0; opacity: 1; }
+      95%  { stroke-dashoffset: 0; opacity: 0; }
+      100% { stroke-dashoffset: 480; opacity: 0; }
+    }
+
+    /* Traveling Rover Beacon */
+    .beacon-rover {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events-none;
+      animation: roverTravel 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .rover-core {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--coral), var(--amber));
+      box-shadow: 0 0 14px var(--coral);
+      border: 2px solid var(--bg-canvas);
+    }
+
+    .rover-halo {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: var(--coral);
+      opacity: 0.4;
+      animation: pulseGlow 1.8s ease-in-out infinite;
+    }
+
+    @keyframes roverTravel {
+      0%   { left: 0%; opacity: 0; }
+      8%   { opacity: 1; }
+      85%  { left: 100%; opacity: 1; }
+      95%  { left: 100%; opacity: 0; }
+      100% { left: 0%; opacity: 0; }
+    }
+
+    /* Milestone Waypoints */
+    .milestones {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .milestone-node {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--bg-canvas);
+      border: 2px solid var(--text-dim);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .milestone-node.active {
+      border-color: var(--coral);
+      background-color: var(--amber);
+      box-shadow: 0 0 8px var(--amber);
+    }
+
+    /* Telemetry caption & percentage */
+    .loading-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .loading-status-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .status-pulse {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--amber);
+      animation: pulseGlow 2s infinite;
+    }
+
+    .progress-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: var(--coral);
+    }
+
+    /* ── STAGGERED ENTRANCE ANIMATIONS ──────────────────────────────────── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── RESPONSIVE PADDING FOR 1920x1080 & ULTRA-WIDE ─────────────────── */
+    @media (min-width: 1440px) {
+      .top-telemetry {
+        padding: 56px 90px;
+      }
+      .hero-container {
+        padding: 0 90px 96px 90px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-telemetry {
+        padding: 24px 28px;
+      }
+      .hero-container {
+        padding: 0 28px 48px 28px;
+      }
+      .brand-title {
+        font-size: 3.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WARM AMBIENT LIGHT MESH -->
+  <div class="ambient-sun"></div>
+  <div class="ambient-warmth-secondary"></div>
+
+  <!-- TRAVEL MOTIF BACKGROUND: TOPOGRAPHIC MAP & FLIGHT PATH (ASYMMETRIC) -->
+  <svg class="travel-motif-canvas" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Warm Coral-to-Amber Gradient -->
+      <linearGradient id="coral-amber-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#FF5A5F" />
+        <stop offset="55%" stop-color="#F59E0B" />
+        <stop offset="100%" stop-color="#EAB308" />
+      </linearGradient>
+
+      <!-- Soft Mountain Mask -->
+      <linearGradient id="horizon-fade" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.07" />
+        <stop offset="100%" stop-color="#FF5A5F" stop-opacity="0.0" />
+      </linearGradient>
+    </defs>
+
+    <!-- Faint Topographic Contour Curves Across Right & Center -->
+    <path class="topo-lines" d="M 650,-50 C 950,180 1200,80 1500,240 S 1900,120 2050,300" />
+    <path class="topo-lines" d="M 580,-20 C 880,220 1150,130 1450,290 S 1850,180 2050,360" />
+    <path class="topo-lines" d="M 520,30 C 820,260 1100,180 1400,340 S 1800,240 2050,420" />
+    <path class="topo-lines" d="M 450,90 C 750,310 1050,230 1350,390 S 1750,300 2050,480" />
+
+    <path class="topo-lines" d="M 900,450 C 1200,600 1450,520 1750,680 S 1950,620 2050,750" />
+    <path class="topo-lines" d="M 850,510 C 1150,660 1400,580 1700,740 S 1900,680 2050,810" />
+
+    <!-- Distant Mountain / Horizon Silhouette Layer in Lower Right -->
+    <path fill="url(#horizon-fade)" d="M 700,1080 L 700,880 Q 950,740 1150,820 T 1550,780 Q 1750,850 1920,810 L 1920,1080 Z" />
+
+    <!-- Dotted Travel Flight Path Arcing from Origin to Destination -->
+    <path class="route-arc" d="M 220,1020 Q 850,380 1720,220" />
+
+    <!-- Destination Star Waypoint -->
+    <circle cx="1720" cy="220" r="4.5" fill="#F59E0B" opacity="0.65" />
+    <circle cx="1720" cy="220" r="14" stroke="#F59E0B" stroke-width="1.2" stroke-dasharray="3 3" fill="none" opacity="0.4" />
+  </svg>
+
+  <!-- ── TOP ASYMMETRIC TELEMETRY BAR ────────────────────────────────────── -->
+  <header class="top-telemetry">
+    <div class="geo-pill">
+      <span class="live-dot"></span>
+      <span>TUMKUR DISTRICT · 13.34°N, 77.10°E · ALT 822M</span>
+    </div>
+
+    <!-- Interactive Light/Dark Theme Switcher Button -->
+    <button class="theme-toggle-btn" id="themeToggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+      <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
+  </header>
+
+  <!-- ── ASYMMETRIC LOWER-THIRD BRAND HERO ────────────────────────────────── -->
+  <main class="hero-container">
+    
+    <!-- Micro Overline Badge -->
+    <div class="overline-badge">
+      <span>✦</span>
+      <span>Autonomous Travel Intelligence</span>
+    </div>
+
+    <!-- Asymmetric Master Wordmark -->
+    <h1 class="brand-title">
+      NAVORA <span class="gradient-ai">AI</span>
+    </h1>
+
+    <!-- Tagline with Warm Editorial Accent -->
+    <p class="brand-tagline">
+      Plan less, <strong>Experience more.</strong>
+    </p>
+
+    <!-- Organic Drawn Route Loading Indicator -->
+    <div class="loading-block">
+      <div class="route-meter">
+        <svg class="route-svg" viewBox="0 0 500 48" preserveAspectRatio="none">
+          <!-- Background Base Track -->
+          <path class="route-bg-line" d="M 0,24 Q 130,8 250,24 T 500,24" />
+          <!-- Animated Drawn Route Path -->
+          <path class="route-drawn-line" d="M 0,24 Q 130,8 250,24 T 500,24" />
+        </svg>
+
+        <!-- Traveling Beacon Rover Head -->
+        <div class="beacon-rover">
+          <div class="rover-halo"></div>
+          <div class="rover-core"></div>
+        </div>
+
+        <!-- Waypoint Milestone Nodes -->
+        <div class="milestones">
+          <div class="milestone-node active" title="Departure"></div>
+          <div class="milestone-node" id="node1" title="Optimization"></div>
+          <div class="milestone-node" id="node2" title="Waypoint Sequencing"></div>
+          <div class="milestone-node" id="node3" title="Experience Complete"></div>
+        </div>
+      </div>
+
+      <!-- Live Loading Status & Smooth Counter -->
+      <div class="loading-status-bar">
+        <div class="loading-status-text">
+          <span class="status-pulse"></span>
+          <span id="statusMessage">Synthesizing zero-backtracking circuit...</span>
+        </div>
+        <div class="progress-percent" id="percentCounter">0%</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT: THEME TOGGLE & PROGRESS SIMULATION -->
+  <script>
+    // ── THEME TOGGLE CONTROLLER ───────────────────────────────────────────
+    const themeBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    const sunIcon = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+    const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+
+    function updateThemeIcon(isDark) {
+      document.getElementById('themeIcon').innerHTML = isDark ? moonIcon : sunIcon;
+    }
+
+    themeBtn.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      const isDark = root.classList.contains('dark');
+      updateThemeIcon(isDark);
+    });
+
+    // ── PROGRESS COUNTER & STATUS SEQUENCE SIMULATOR ───────────────────────
+    const statusMsg = document.getElementById('statusMessage');
+    const percentEl = document.getElementById('percentCounter');
+    const node1 = document.getElementById('node1');
+    const node2 = document.getElementById('node2');
+    const node3 = document.getElementById('node3');
+
+    const sequence = [
+      { at: 0,   text: "Calibrating Tumkur geo-coordinates...", n1: false, n2: false, n3: false },
+      { at: 28,  text: "Optimizing Devarayanadurga sunrise trails...", n1: true, n2: false, n3: false },
+      { at: 58,  text: "Sequencing Kyathsandra Thatte Idli stops...", n1: true, n2: true, n3: false },
+      { at: 86,  text: "Synthesizing zero-backtracking circuit...", n1: true, n2: true, n3: true },
+      { at: 100, text: "Itinerary curated. Welcome to NAVORA AI.", n1: true, n2: true, n3: true }
+    ];
+
+    let currentPct = 0;
+    function updateLoop() {
+      currentPct = (currentPct + 1) % 101;
+      percentEl.textContent = `${currentPct}%`;
+
+      const match = [...sequence].reverse().find(s => currentPct >= s.at);
+      if (match) {
+        statusMsg.textContent = match.text;
+        node1.classList.toggle('active', match.n1);
+        node2.classList.toggle('active', match.n2);
+        node3.classList.toggle('active', match.n3);
+      }
+
+      setTimeout(updateLoop, currentPct === 100 ? 1200 : 45);
+    }
+    updateLoop();
+  </script>
+</body>
+</html>
