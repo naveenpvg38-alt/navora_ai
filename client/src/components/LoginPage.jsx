@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   AlertCircle,
-  KeyRound,
   RotateCw,
   Clock,
   Edit3,
@@ -35,7 +34,6 @@ export default function LoginPage({
 
   // OTP 6-Digit input state & refs
   const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
-  const [devOtp, setDevOtp] = useState('');
   const [expirySeconds, setExpirySeconds] = useState(600); // 10 min
   const [resendCooldown, setResendCooldown] = useState(0);
 
@@ -108,14 +106,6 @@ export default function LoginPage({
     }
   };
 
-  const handleAutoFillDevOtp = () => {
-    if (!devOtp || devOtp.length !== 6) return;
-    setOtpDigits(devOtp.split(''));
-    if (otpInputRefs[5]?.current) {
-      otpInputRefs[5].current.focus();
-    }
-  };
-
   // Step 1: Request Email Verification Code
   const handleSendVerificationCode = async (e) => {
     if (e) e.preventDefault();
@@ -143,11 +133,6 @@ export default function LoginPage({
       setExpirySeconds(600);
       setResendCooldown(60);
       setOtpDigits(['', '', '', '', '', '']);
-      if (data && data.devOtp) {
-        setDevOtp(data.devOtp);
-      } else {
-        setDevOtp('');
-      }
       setOtpSuccessMsg(`Security verification code sent to ${cleanEmail}`);
       setTimeout(() => {
         if (otpInputRefs[0]?.current) otpInputRefs[0].current.focus();
@@ -208,9 +193,6 @@ export default function LoginPage({
       setResendCooldown(60);
       setExpirySeconds(600);
       setOtpDigits(['', '', '', '', '', '']);
-      if (data && data.devOtp) {
-        setDevOtp(data.devOtp);
-      }
       setOtpSuccessMsg(`Fresh verification code sent to ${cleanEmail}`);
       setTimeout(() => {
         if (otpInputRefs[0]?.current) otpInputRefs[0].current.focus();
@@ -454,22 +436,6 @@ export default function LoginPage({
                   )}
                 </div>
 
-                {/* Dev Simulation Helper Card (shown when SMTP is simulated) */}
-                {devOtp && (
-                  <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-between text-xs text-cyan-300 mb-2 animate-fade-in">
-                    <div className="flex items-center gap-2">
-                      <KeyRound className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>Dev Mode Code: <strong className="font-mono text-sm text-cyan-200">{devOtp}</strong></span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleAutoFillDevOtp}
-                      className="px-2.5 py-1 rounded-lg bg-cyan-400 text-black font-mono text-[10px] font-bold hover:bg-cyan-300 cursor-pointer transition-colors shadow-sm"
-                    >
-                      Auto-Fill
-                    </button>
-                  </div>
-                )}
 
                 {/* Submit Button */}
                 <button

@@ -82,9 +82,7 @@ exports.sendOtp = async (req, res) => {
     return res.json({
       message: 'Verification code sent to your email address.',
       email: cleanEmail,
-      expiresInMinutes: 10,
-      simulated: sendResult.simulated,
-      devOtp: sendResult.simulated ? otp : undefined
+      expiresInMinutes: 10
     });
   } catch (err) {
     console.error('Send OTP error:', err);
