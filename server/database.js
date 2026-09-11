@@ -87,6 +87,16 @@ function initializeDatabase() {
       FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
       FOREIGN KEY (plan_id) REFERENCES plans(plan_id) ON DELETE CASCADE
     );
+
+    CREATE TABLE IF NOT EXISTS email_verifications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL,
+      otp_hash TEXT NOT NULL,
+      expires_at DATETIME NOT NULL,
+      attempts INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE INDEX IF NOT EXISTS idx_email_verifications_email ON email_verifications(email);
   `);
 
   // Seed default demo user for instant evaluation

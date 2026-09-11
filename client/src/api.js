@@ -82,7 +82,37 @@ function createFallbackSession(email, name = null) {
 }
 
 export const api = {
-  // Auth
+  // Auth & Email Verification
+  sendOtp: async (email, name = '') => {
+    const res = await fetch(`${API_BASE}/auth/send-otp`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name })
+    });
+    return await handleResponse(res);
+  },
+
+  verifyAndSignup: async ({ name, email, password, otp }) => {
+    const res = await fetch(`${API_BASE}/auth/verify-and-signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, otp })
+    });
+    return await handleResponse(res);
+  },
+
+  signup: async ({ name, email, password, otp }) => {
+    if (otp) {
+      return await api.verifyAndSignup({ name, email, password, otp });
+    }
+    const res = await fetch(`${API_BASE}/auth/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    return await handleResponse(res);
+  },
+
   register: async (name, email, password) => {
     try {
       const res = await fetch(`${API_BASE}/auth/register`, {
