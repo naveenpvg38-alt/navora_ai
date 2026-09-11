@@ -145,10 +145,19 @@ export default function Home({ user, onGetStarted, onStartPlanning, onQuickTempl
       {/* ── HERO ──────────────────────────────────────── */}
       <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          {/* Overline badge with Space Mono */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/4 border border-slate-200 dark:border-white/10 mb-6 sm:mb-8 animate-fade-up shadow-sm dark:shadow-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse-glow" />
-            <span className="font-spaceMono text-[10.5px] sm:text-[11.5px] font-bold tracking-widest uppercase text-cyan-700 dark:text-cyan-400">
+          {/* Futuristic Travel-Tech Wordmark Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-white/95 dark:bg-[#09101f]/90 border border-cyan-500/35 dark:border-cyan-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.06),0_0_15px_rgba(6,182,212,0.15)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.35),0_0_20px_rgba(34,211,238,0.2),inset_0_1px_1px_rgba(255,255,255,0.12)] mb-6 sm:mb-8 animate-fade-up backdrop-blur-md relative overflow-hidden group">
+            {/* Subtle glass reflection highlight */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/12 via-transparent to-transparent pointer-events-none rounded-full" />
+            
+            {/* Luminous cyan status dot */}
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+            </span>
+
+            {/* Monospaced Wordmark */}
+            <span className="font-spaceMono text-[11px] sm:text-[12px] font-bold tracking-[0.14em] uppercase text-cyan-700 dark:text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.25)] select-none">
               TUMKUR · AI-POWERED OUTING PLANNER
             </span>
           </div>
