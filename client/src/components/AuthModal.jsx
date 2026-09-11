@@ -3,15 +3,15 @@ import { X, Zap, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react'
 import { api } from '../api';
 
 const InputField = ({ icon: Icon, type, placeholder, value, onChange, required }) => (
-  <div className="relative">
-    <Icon className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+  <div className="relative rounded-xl bg-slate-50 dark:bg-[#0c1426] border border-slate-200 dark:border-cyan-500/25 focus-within:border-cyan-400 focus-within:shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all duration-200">
+    <Icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400/70 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
     <input
       type={type}
       required={required}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="w-full pl-11 pr-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-200 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 focus:border-cyan-500"
+      className="w-full pl-11 pr-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-transparent outline-none font-medium"
     />
   </div>
 );

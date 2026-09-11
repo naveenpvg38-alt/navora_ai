@@ -91,137 +91,25 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
   const [gpsCoords, setGpsCoords] = useState(null);
 
   const moods = [
-    {
-      id: 'Relaxed',
-      icon: '🌿',
-      label: 'Relaxed',
-      activeBorder: 'border-emerald-400/80',
-      activeGlow: 'rgba(52,211,153,0.3)',
-      textAccent: 'text-emerald-300',
-    },
-    {
-      id: 'Foodie',
-      icon: '🍲',
-      label: 'Foodie',
-      activeBorder: 'border-amber-400/80',
-      activeGlow: 'rgba(251,191,36,0.3)',
-      textAccent: 'text-amber-300',
-    },
-    {
-      id: 'Adventurous',
-      icon: '⚡',
-      label: 'Adventure',
-      activeBorder: 'border-cyan-400/80',
-      activeGlow: 'rgba(34,211,238,0.3)',
-      textAccent: 'text-cyan-300',
-    },
-    {
-      id: 'Cultural',
-      icon: '🏛️',
-      label: 'Cultural',
-      activeBorder: 'border-violet-400/80',
-      activeGlow: 'rgba(167,139,250,0.3)',
-      textAccent: 'text-violet-300',
-    },
-    {
-      id: 'Romantic',
-      icon: '✨',
-      label: 'Romantic',
-      activeBorder: 'border-rose-400/80',
-      activeGlow: 'rgba(251,113,133,0.3)',
-      textAccent: 'text-rose-300',
-    },
-    {
-      id: 'Energetic',
-      icon: '🔥',
-      label: 'Energetic',
-      activeBorder: 'border-orange-400/80',
-      activeGlow: 'rgba(251,146,60,0.3)',
-      textAccent: 'text-orange-300',
-    },
-    {
-      id: 'Chill',
-      icon: '☕',
-      label: 'Chill',
-      activeBorder: 'border-sky-400/80',
-      activeGlow: 'rgba(56,189,248,0.3)',
-      textAccent: 'text-sky-300',
-    },
-    {
-      id: 'Nature Explorer',
-      icon: '🌲',
-      label: 'Nature',
-      activeBorder: 'border-emerald-400/80',
-      activeGlow: 'rgba(74,222,128,0.3)',
-      textAccent: 'text-emerald-300',
-    },
+    { id: 'Relaxed', icon: '🌿', label: 'Relaxed' },
+    { id: 'Foodie', icon: '🍲', label: 'Foodie' },
+    { id: 'Adventurous', icon: '⚡', label: 'Adventure' },
+    { id: 'Cultural', icon: '🏛️', label: 'Cultural' },
+    { id: 'Romantic', icon: '✨', label: 'Romantic' },
+    { id: 'Energetic', icon: '🔥', label: 'Energetic' },
+    { id: 'Chill', icon: '☕', label: 'Chill' },
+    { id: 'Nature Explorer', icon: '🌲', label: 'Nature' },
   ];
 
   const availableInterests = [
-    {
-      name: 'Scenic Outdoors',
-      icon: '⛰️',
-      label: 'Peak Treks',
-      activeBorder: 'border-emerald-400/80',
-      activeGlow: 'rgba(52,211,153,0.3)',
-      textAccent: 'text-emerald-300',
-    },
-    {
-      name: 'Cafes & Dining',
-      icon: '🧈',
-      label: 'Food & Cafes',
-      activeBorder: 'border-amber-400/80',
-      activeGlow: 'rgba(251,191,36,0.3)',
-      textAccent: 'text-amber-300',
-    },
-    {
-      name: 'Heritage & Sightseeing',
-      icon: '🛕',
-      label: 'Heritage Forts',
-      activeBorder: 'border-cyan-400/80',
-      activeGlow: 'rgba(34,211,238,0.3)',
-      textAccent: 'text-cyan-300',
-    },
-    {
-      name: 'Hidden Gems',
-      icon: '🦌',
-      label: 'Forest Springs',
-      activeBorder: 'border-pink-400/80',
-      activeGlow: 'rgba(244,114,182,0.3)',
-      textAccent: 'text-pink-300',
-    },
-    {
-      name: 'Art & Culture',
-      icon: '🎨',
-      label: 'Art & Culture',
-      activeBorder: 'border-violet-400/80',
-      activeGlow: 'rgba(167,139,250,0.3)',
-      textAccent: 'text-violet-300',
-    },
-    {
-      name: 'Lake Walks',
-      icon: '🌅',
-      label: 'Lake Walks',
-      activeBorder: 'border-sky-400/80',
-      activeGlow: 'rgba(56,189,248,0.3)',
-      textAccent: 'text-sky-300',
-    },
-    {
-      name: 'Live Music & Nightlife',
-      icon: '🛵',
-      label: 'Scenic Drives',
-      activeBorder: 'border-rose-400/80',
-      activeGlow: 'rgba(251,113,133,0.3)',
-      textAccent: 'text-rose-300',
-    },
-    {
-      name: 'Shopping & Bazaars',
-      icon: '🛍️',
-      label: 'Local Bazaars',
-      activeBorder: 'border-indigo-400/80',
-      activeGlow: 'rgba(129,140,248,0.3)',
-      textAccent: 'text-indigo-300',
-    },
+    { name: 'Scenic Outdoors', icon: '⛰️', label: 'Peak Treks' },
+    { name: 'Cafes & Dining', icon: '🧈', label: 'Food & Cafes' },
+    { name: 'Heritage & Sightseeing', icon: '🛕', label: 'Heritage Forts' },
+    { name: 'Hidden Gems', icon: '🦌', label: 'Forest Springs' },
+    { name: 'Art & Culture', icon: '🎨', label: 'Art & Culture' },
+    { name: 'Lake Walks', icon: '🌅', label: 'Lake Walks' },
+    { name: 'Live Music & Nightlife', icon: '🛵', label: 'Scenic Drives' },
+    { name: 'Shopping & Bazaars', icon: '🛍️', label: 'Local Bazaars' },
   ];
 
   const getBudgetTier = (amt) => {
@@ -430,22 +318,14 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                   onClick={() => setMood(m.id)}
                   className={`group relative flex flex-col items-center justify-center py-2.5 px-2 sm:py-3 sm:px-2.5 rounded-xl border cursor-pointer transition-all duration-200 overflow-hidden select-none ${
                     active
-                      ? `${m.activeBorder} bg-cyan-50/80 dark:bg-gradient-to-br dark:from-[#151D30]/95 dark:to-[#0D1224]/98 shadow-md scale-[1.02] -translate-y-0.5`
-                      : 'border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-white/[0.025] hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:-translate-y-0.5'
+                      ? 'border-cyan-400 dark:border-cyan-400/90 bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0E1C33] dark:to-[#091122] shadow-[0_0_20px_rgba(34,211,238,0.25)] scale-[1.02] -translate-y-0.5'
+                      : 'border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-white/[0.025] hover:border-cyan-400/40 dark:hover:border-cyan-400/40 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:-translate-y-0.5'
                   }`}
-                  style={{
-                    boxShadow: active
-                      ? `0 8px 20px -4px ${m.activeGlow}, inset 0 0 16px rgba(255,255,255,0.03)`
-                      : undefined,
-                  }}
                 >
-                  {/* Subtle active radial ambient glow */}
+                  {/* Active ambient radial glow */}
                   {active && (
                     <div
-                      className="absolute inset-0 opacity-40 pointer-events-none blur-md"
-                      style={{
-                        background: `radial-gradient(circle at center, ${m.activeGlow} 0%, transparent 70%)`
-                      }}
+                      className="absolute inset-0 opacity-40 pointer-events-none blur-md bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.3)_0%,transparent_70%)]"
                     />
                   )}
 
@@ -467,7 +347,7 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
 
                   {/* Clean Mood Label */}
                   <span className={`font-semibold text-xs tracking-tight transition-colors duration-200 ${
-                    active ? `${m.textAccent} font-bold` : 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white'
+                    active ? 'text-cyan-700 dark:text-cyan-300 font-bold' : 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white'
                   }`}>
                     {m.label}
                   </span>
@@ -476,7 +356,7 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                   <span
                     className={`h-0.5 rounded-full mt-1 transition-all duration-200 ${
                       active
-                        ? 'w-5 bg-current shadow-[0_0_6px_currentColor]'
+                        ? 'w-5 bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_6px_#22d3ee]'
                         : 'w-0 group-hover:w-2.5 bg-slate-300 dark:bg-white/30'
                     }`}
                   />
@@ -496,7 +376,7 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
           />
 
           {maxNotice && (
-            <div className="mb-2.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-500 dark:text-amber-300 text-[11px] font-mono flex items-center justify-between animate-fadeIn shadow-sm">
+            <div className="mb-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-600 dark:text-cyan-300 text-[11px] font-mono flex items-center justify-between animate-fadeIn shadow-sm">
               <span className="flex items-center gap-1.5">
                 <span>⚠️</span>
                 <span>Maximum 2 activities allowed. Deselect one first to pick another.</span>
@@ -504,7 +384,7 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
               <button
                 type="button"
                 onClick={() => setMaxNotice(false)}
-                className="text-amber-500/70 dark:text-amber-400/70 hover:text-amber-600 dark:hover:text-amber-200 ml-2 text-xs cursor-pointer"
+                className="text-cyan-600/70 dark:text-cyan-400/70 hover:text-cyan-700 dark:hover:text-white ml-2 text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -522,23 +402,17 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                   onClick={() => toggleInterest(item.name)}
                   className={`group relative flex items-center justify-between py-2 px-2.5 sm:py-2.5 sm:px-3 rounded-xl border cursor-pointer transition-all duration-200 select-none overflow-hidden text-left ${
                     active
-                      ? `${item.activeBorder} bg-cyan-50/80 dark:bg-gradient-to-br dark:from-[#151D30]/95 dark:to-[#0D1224]/98 scale-[1.01] shadow-md`
+                      ? 'border-cyan-400 dark:border-cyan-400/90 bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0E1C33] dark:to-[#091122] scale-[1.01] shadow-[0_0_18px_rgba(34,211,238,0.22)]'
                       : atMax
-                      ? 'border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.015] opacity-60 hover:opacity-90 hover:border-amber-400/30'
-                      : 'border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-white/[0.025] hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:translate-x-0.5'
+                      ? 'border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/[0.015] opacity-60 hover:opacity-90 hover:border-cyan-400/30'
+                      : 'border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-white/[0.025] hover:border-cyan-400/40 dark:hover:border-cyan-400/40 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:translate-x-0.5'
                   }`}
-                  style={{
-                    boxShadow: active
-                      ? `0 6px 18px -4px ${item.activeGlow}, inset 0 0 14px rgba(255,255,255,0.03)`
-                      : undefined,
-                  }}
                 >
                   {/* Left luminous accent bar */}
                   <div
                     className={`absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full transition-all duration-200 ${
-                      active ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-50'
+                      active ? 'opacity-100 scale-y-100 bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#22d3ee]' : 'opacity-0 scale-y-50'
                     }`}
-                    style={{ backgroundColor: active ? item.activeGlow.replace('0.3', '1') : 'transparent' }}
                   />
 
                   {/* Left side: Icon medallion + Label */}
@@ -546,7 +420,7 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                     <div
                       className={`w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-lg flex items-center justify-center text-lg sm:text-xl shrink-0 transition-all duration-200 ${
                         active
-                          ? 'bg-white dark:bg-white/10 shadow-sm dark:shadow-inner scale-105'
+                          ? 'bg-cyan-500/20 border border-cyan-400/40 shadow-[0_0_10px_rgba(34,211,238,0.2)] scale-105'
                           : 'bg-white/70 dark:bg-white/[0.03] border border-slate-200 dark:border-white/8 group-hover:scale-105'
                       }`}
                     >
@@ -556,12 +430,14 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                     <div className="min-w-0">
                       <span
                         className={`block font-semibold text-xs sm:text-sm tracking-tight transition-colors duration-200 leading-tight ${
-                          active ? `${item.textAccent} font-bold` : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white'
+                          active ? 'text-slate-900 dark:text-white font-bold drop-shadow-sm' : 'text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-white'
                         }`}
                       >
                         {item.label}
                       </span>
-                      <span className="block text-[10px] font-mono text-slate-500 dark:text-slate-500 truncate leading-tight mt-0.5">
+                      <span className={`block text-[10px] font-mono truncate leading-tight mt-0.5 ${
+                        active ? 'text-cyan-700 dark:text-cyan-300 font-medium' : 'text-slate-500 dark:text-slate-400'
+                      }`}>
                         {item.name}
                       </span>
                     </div>
@@ -572,11 +448,11 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
                     <div
                       className={`w-5 h-5 rounded-full flex items-center justify-center transition-all duration-200 ${
                         active
-                          ? 'bg-cyan-500 text-white dark:bg-cyan-400 dark:text-slate-950 shadow-[0_0_10px_rgba(34,211,238,0.5)] scale-105'
+                          ? 'bg-cyan-500 text-white dark:bg-cyan-400 dark:text-slate-950 shadow-[0_0_12px_rgba(34,211,238,0.6)] scale-105 font-black'
                           : 'border border-slate-300 dark:border-white/20 text-transparent group-hover:border-cyan-500/50'
                       }`}
                     >
-                      <Check className={`w-3 h-3 stroke-[3] transition-transform duration-150 ${active ? 'scale-100' : 'scale-0'}`} />
+                      <Check className={`w-3.5 h-3.5 stroke-[3] transition-transform duration-150 ${active ? 'scale-100' : 'scale-0'}`} />
                     </div>
                   </div>
 
@@ -902,29 +778,37 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
               <p className="text-slate-500 text-xs">Tailors place capacities and ambiance for your party.</p>
             </div>
             {/* People counter */}
-            <div className="flex items-center gap-2 shrink-0 ml-3 bg-slate-100 dark:bg-white/4 border border-slate-200 dark:border-white/8 rounded-xl px-3 py-1.5 shadow-sm dark:shadow-none">
-              <span className="text-[11px] font-mono text-slate-500 dark:text-slate-600">PEOPLE</span>
-              <button type="button" onClick={() => setPeopleCount(Math.max(1, peopleCount - 1))}
-                className="w-6 h-6 rounded-lg flex items-center justify-center text-sm font-bold text-slate-700 dark:text-white bg-white dark:bg-white/6 border border-slate-200 dark:border-white/8 cursor-pointer transition-colors shadow-sm dark:shadow-none">−</button>
-              <span className="font-mono text-sm font-bold text-cyan-600 dark:text-cyan-300 w-4 text-center">{peopleCount}</span>
-              <button type="button" onClick={() => setPeopleCount(peopleCount + 1)}
-                className="w-6 h-6 rounded-lg flex items-center justify-center text-sm font-bold text-slate-700 dark:text-white bg-white dark:bg-white/6 border border-slate-200 dark:border-white/8 cursor-pointer transition-colors shadow-sm dark:shadow-none">+</button>
+            <div className="flex items-center gap-2 shrink-0 ml-3 bg-slate-100 dark:bg-[#0A1020] border border-slate-200 dark:border-cyan-500/25 rounded-xl px-3 py-1.5 shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-slate-500 dark:text-slate-400">PEOPLE</span>
+              <button
+                type="button"
+                onClick={() => setPeopleCount(Math.max(1, peopleCount - 1))}
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold text-slate-700 dark:text-cyan-300 bg-white dark:bg-cyan-500/10 border border-slate-300 dark:border-cyan-500/30 hover:bg-cyan-500 hover:text-black cursor-pointer transition-all active:scale-95 shadow-sm"
+              >−</button>
+              <span className="font-mono text-sm font-bold text-cyan-600 dark:text-cyan-400 w-5 text-center drop-shadow-[0_0_8px_rgba(34,211,238,0.4)]">{peopleCount}</span>
+              <button
+                type="button"
+                onClick={() => setPeopleCount(peopleCount + 1)}
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold text-slate-700 dark:text-cyan-300 bg-white dark:bg-cyan-500/10 border border-slate-300 dark:border-cyan-500/30 hover:bg-cyan-500 hover:text-black cursor-pointer transition-all active:scale-95 shadow-sm"
+              >+</button>
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
             {tripTypes.map((t) => {
               const active = tripType === t.type;
               return (
-                <button key={t.type} type="button"
+                <button
+                  key={t.type}
+                  type="button"
                   onClick={() => { setTripType(t.type); setPeopleCount(t.count); }}
-                  className={`p-3 rounded-xl border text-center cursor-pointer transition-all ${
+                  className={`p-3 rounded-xl border text-center cursor-pointer transition-all duration-200 ${
                     active
-                      ? 'bg-pink-50 dark:bg-pink-500/10 border-pink-400 dark:border-pink-500/40 text-pink-700 dark:text-pink-300 shadow-sm'
-                      : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-400 hover:border-slate-300'
+                      ? 'bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0E1C33] dark:to-[#091122] border-cyan-400 dark:border-cyan-400 text-cyan-700 dark:text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] scale-[1.02]'
+                      : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-400 hover:border-cyan-400/40 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  <div className={`text-xs font-bold ${active ? 'text-pink-600 dark:text-pink-300' : 'text-slate-900 dark:text-white'}`}>{t.type}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-slate-600 mt-0.5">~{t.count} {t.count === 1 ? 'person' : 'people'}</div>
+                  <div className={`text-xs font-bold ${active ? 'text-cyan-700 dark:text-cyan-300' : 'text-slate-900 dark:text-white'}`}>{t.type}</div>
+                  <div className={`text-[10px] mt-0.5 ${active ? 'text-cyan-600 dark:text-cyan-400/80 font-mono font-medium' : 'text-slate-500 dark:text-slate-500'}`}>~{t.count} {t.count === 1 ? 'person' : 'people'}</div>
                 </button>
               );
             })}
@@ -939,14 +823,21 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
             {transportModes.map((tm) => {
               const active = transport === tm.id;
               return (
-                <button key={tm.id} type="button" onClick={() => setTransport(tm.id)}
-                  className={`p-3.5 rounded-xl border flex items-center gap-2.5 cursor-pointer transition-all ${
+                <button
+                  key={tm.id}
+                  type="button"
+                  onClick={() => setTransport(tm.id)}
+                  className={`p-3.5 rounded-xl border flex items-center gap-2.5 cursor-pointer transition-all duration-200 ${
                     active
-                      ? 'bg-cyan-50 dark:bg-cyan-500/10 border-cyan-400 dark:border-cyan-400/40 text-cyan-800 dark:text-cyan-300 shadow-sm'
-                      : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-400 hover:border-slate-300'
+                      ? 'bg-cyan-50/90 dark:bg-gradient-to-br dark:from-[#0E1C33] dark:to-[#091122] border-cyan-400 dark:border-cyan-400 text-cyan-700 dark:text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] scale-[1.02]'
+                      : 'bg-slate-50 dark:bg-white/[0.03] border-slate-200 dark:border-white/[0.06] text-slate-700 dark:text-slate-400 hover:border-cyan-400/40 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  <div className="p-1.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/7 shadow-sm dark:shadow-none">
+                  <div className={`p-1.5 rounded-lg border transition-colors ${
+                    active
+                      ? 'bg-cyan-500/20 border-cyan-400/40 shadow-sm'
+                      : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/7'
+                  }`}>
                     {tm.icon}
                   </div>
                   <span className="text-xs font-medium">{tm.label}</span>
@@ -960,15 +851,15 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
         <SectionCard>
           <SectionHeader step="07" title="Location" desc="Where in Tumkur do you want to explore?" />
 
-          <div className="relative">
-            <MapPin className="w-4 h-4 text-cyan-600 dark:text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
+          <div className="relative rounded-xl bg-slate-50 dark:bg-[#09101f] border border-slate-200 dark:border-cyan-500/30 focus-within:border-cyan-400 focus-within:shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all">
+            <MapPin className="w-4 h-4 text-cyan-500 dark:text-cyan-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none z-10" />
             <input
               type="text"
               required
               value={location}
               onChange={(e) => { setLocation(e.target.value); setGpsCoords(null); }}
               placeholder="e.g. Tumkur City, DD Hills, Madhugiri..."
-              className="w-full pl-10 pr-24 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none transition-all rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 focus:border-cyan-500"
+              className="w-full pl-10 pr-28 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none bg-transparent font-medium"
             />
             {/* GPS Button inside input */}
             <button
@@ -976,10 +867,10 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
               onClick={handleDetectLocation}
               disabled={detectingLocation}
               title="Detect my location"
-              className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer bg-cyan-500/10 border border-cyan-500/25 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20"
+              className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer bg-cyan-500/15 border border-cyan-500/30 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500 hover:text-black shadow-[0_0_10px_rgba(34,211,238,0.2)]"
             >
               <LocateFixed className={`w-3.5 h-3.5 ${detectingLocation ? 'animate-spin' : ''}`} />
-              <span>{detectingLocation ? 'Finding...' : gpsCoords ? 'GPS ✓' : 'GPS'}</span>
+              <span>{detectingLocation ? 'FINDING...' : gpsCoords ? 'GPS ✓' : 'GPS'}</span>
             </button>
           </div>
 
@@ -991,15 +882,22 @@ export default function Planner({ onGenerate, initialPreferences = {} }) {
           )}
         </SectionCard>
 
-
         {/* Submit */}
         <div className="pt-2">
-          <button type="submit" className="btn-primary w-full !rounded-2xl !py-4 !text-base !gap-3 justify-center">
-            <Sparkles className="w-5 h-5" />
-            Generate My Outing Plan
-            <ChevronRight className="w-5 h-5" />
+          <button
+            type="submit"
+            className="w-full py-4 rounded-2xl font-clash font-bold text-base tracking-wide text-white flex items-center justify-center gap-3 relative overflow-hidden group cursor-pointer transition-all duration-300 shadow-[0_0_25px_rgba(6,182,212,0.35),0_8px_25px_-4px_rgba(59,130,246,0.5)] hover:shadow-[0_0_35px_rgba(6,182,212,0.5),0_12px_30px_-4px_rgba(59,130,246,0.6)] active:scale-[0.99]"
+            style={{
+              background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%)',
+            }}
+          >
+            {/* Shimmer light sweep */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
+            <Sparkles className="w-5 h-5 text-cyan-200 group-hover:scale-110 transition-transform" />
+            <span>Generate My Outing Plan</span>
+            <ChevronRight className="w-5 h-5 text-cyan-200 group-hover:translate-x-1 transition-transform" />
           </button>
-          <p className="text-center text-[11px] text-slate-700 font-mono mt-3 tracking-wider">
+          <p className="text-center text-[11px] text-slate-500 dark:text-slate-500 font-mono mt-3 tracking-widest uppercase">
             POWERED BY NAVORA AI · TUMKUR DISTRICT
           </p>
         </div>
