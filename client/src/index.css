@@ -666,3 +666,54 @@ html:not(.dark) select option {
   50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+/* ── Single-Line Project Route Animation ─────────────────────── */
+@keyframes routeTravelLoop {
+  0% {
+    left: 0%;
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  3% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+
+.animate-route-travel {
+  animation: routeTravelLoop 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes laserSweepLine {
+  0% {
+    left: -20%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-laser-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.9), transparent);
+  animation: laserSweepLine 2.8s ease-in-out infinite;
+}
+
