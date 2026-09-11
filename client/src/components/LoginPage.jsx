@@ -218,13 +218,31 @@ export default function LoginPage({
           {/* ── LEFT PANEL: The Tumkur Explorer Matrix (Hidden on small, prominent on desktop) ── */}
           <div className="lg:col-span-6 hidden lg:flex flex-col justify-center space-y-6 animate-fade-up">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-[11px] font-mono mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span>TUMKUR EXPLORER ACCESS MATRIX</span>
+              {/* Futuristic Travel-Tech Wordmark Badge matching Home */}
+              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-white/95 dark:bg-[#09101f]/90 border border-cyan-500/35 dark:border-cyan-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.06),0_0_15px_rgba(6,182,212,0.15)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.35),0_0_20px_rgba(34,211,238,0.2),inset_0_1px_1px_rgba(255,255,255,0.12)] mb-4 backdrop-blur-md relative overflow-hidden group">
+                {/* Subtle glass reflection highlight */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/12 via-transparent to-transparent pointer-events-none rounded-full" />
+                
+                {/* Luminous cyan status dot */}
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+                </span>
+
+                {/* Monospaced Wordmark */}
+                <span className="font-spaceMono text-[11px] sm:text-[12px] font-bold tracking-[0.14em] uppercase text-cyan-700 dark:text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.25)] select-none">
+                  TUMKUR · EXPLORER ACCESS MATRIX
+                </span>
               </div>
-              <h1 className="font-display text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-3">
-                Plan less, <br />
-                <span className="text-gradient-cyan">Experience more.</span>
+
+              {/* Tagline Headline with Clash Display & Unbounded matching Home */}
+              <h1 className="font-clash text-3xl sm:text-4xl xl:text-5xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight leading-[1.15] animate-fade-up">
+                <span>Plan less,</span>{' '}
+                <span className="font-unbounded tracking-normal text-gradient-cyan-animated drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] inline-block">
+                  Experience
+                </span>{' '}
+                <br className="hidden sm:inline" />
+                <span>more.</span>
               </h1>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-md">
                 Unlock personalized, zero-backtracking outing itineraries powered by AI, calibrated exclusively for Tumkur’s historic monolithic forts, forest springs, and food trails.
@@ -233,12 +251,15 @@ export default function LoginPage({
 
             {/* Live Discovery Stream with Moving Animations */}
             <div className="space-y-3 pt-3 w-full max-w-lg">
-              {/* Top Capsule: Discovering Active Spot with Typewriter Animation */}
+              {/* Top Capsule: Discovering Active Spot with Typewriter Animation matching Home */}
               <div
-                className="w-full rounded-full px-5 py-2.5 sm:px-6 sm:py-3 flex items-center gap-3 transition-all duration-300 bg-white/90 dark:bg-[#0A101F]/85 border border-slate-200 dark:border-cyan-400/35 shadow-sm dark:shadow-[0_0_25px_rgba(34,211,238,0.12)]"
+                className="w-full rounded-full px-5 py-2.5 sm:px-6 sm:py-3 flex items-center gap-3 transition-all duration-300 bg-white/90 dark:bg-[#0D1224]/85 border border-slate-300/80 dark:border-cyan-500/35 shadow-sm dark:shadow-[0_0_25px_rgba(34,211,238,0.15)] backdrop-blur-md"
               >
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse shrink-0" />
-                <span className="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.18em] text-slate-500 dark:text-slate-400 shrink-0">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+                </span>
+                <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.18em] text-slate-500 dark:text-slate-400 uppercase shrink-0">
                   DISCOVERING:
                 </span>
                 <div className="flex items-center gap-2 overflow-hidden truncate">
