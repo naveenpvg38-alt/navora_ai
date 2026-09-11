@@ -227,6 +227,62 @@ html.dark {
   -webkit-text-fill-color: transparent;
 }
 
+.text-gradient-cyan-animated {
+  background: linear-gradient(135deg, #38BDF8 0%, #818CF8 25%, #C084FC 50%, #38BDF8 75%, #818CF8 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradientShift 7s linear infinite;
+}
+
+html:not(.dark) .text-gradient-cyan-animated {
+  background: linear-gradient(135deg, #0284C7 0%, #4F46E5 30%, #7C3AED 60%, #0284C7 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes textGradientShift {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* ── Floating Aurora Nebulas ────────────────────────────────── */
+@keyframes auroraPulse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(30px, -25px, 0) scale(1.12);
+    opacity: 1;
+  }
+}
+
+@keyframes auroraPulseReverse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(-35px, 20px, 0) scale(1.15);
+    opacity: 0.95;
+  }
+}
+
+.animate-aurora-glow-1 {
+  animation: auroraPulse 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+
+.animate-aurora-glow-2 {
+  animation: auroraPulseReverse 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+
 .text-gradient-white {
   background: linear-gradient(160deg, #FFFFFF 0%, #CBD5E1 100%);
   -webkit-background-clip: text;

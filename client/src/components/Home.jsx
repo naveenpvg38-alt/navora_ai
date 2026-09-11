@@ -15,6 +15,7 @@ import {
   Dices
 } from 'lucide-react';
 import VibeRouletteModal from './VibeRouletteModal';
+import HeroBackgroundAnimation from './HeroBackgroundAnimation';
 
 const DISCOVER_ITEMS = [
   { emoji: '⛰️', text: 'Devarayanadurga Peak Sunrise (1,204m)' },
@@ -155,18 +156,26 @@ export default function Home({ user, onGetStarted, onStartPlanning, onQuickTempl
   return (
     <div className="min-h-screen">
       {/* ── HERO ──────────────────────────────────────── */}
-      <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-8 max-w-7xl mx-auto">
+      <section className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+        {/* Dynamic Interactive Waypoint Constellation Canvas */}
+        <HeroBackgroundAnimation />
+
+        {/* Ambient Floating Aurora Glow Fields */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-[75%] -translate-y-1/2 w-[350px] sm:w-[540px] h-[350px] sm:h-[540px] rounded-full bg-cyan-500/15 dark:bg-cyan-500/20 blur-[90px] sm:blur-[130px] pointer-events-none animate-aurora-glow-1 -z-10" />
+        <div className="absolute top-1/3 left-1/2 translate-x-[8%] -translate-y-1/2 w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] rounded-full bg-violet-600/15 dark:bg-violet-600/20 blur-[100px] sm:blur-[140px] pointer-events-none animate-aurora-glow-2 -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] rounded-full bg-emerald-500/10 dark:bg-emerald-500/12 blur-[85px] sm:blur-[120px] pointer-events-none -z-10" />
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           {/* Overline badge */}
-          <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white/4 border border-white/10 mb-6 sm:mb-8 animate-fade-up">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse-glow" />
-            <span className="label-overline">Tumkur · AI-Powered Outing Planner</span>
+          <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-slate-100/90 dark:bg-white/4 border border-slate-200 dark:border-white/10 mb-6 sm:mb-8 animate-fade-up shadow-sm dark:shadow-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse-glow" />
+            <span className="label-overline text-cyan-700 dark:text-cyan-400">Tumkur · AI-Powered Outing Planner</span>
           </div>
 
           {/* Hero headline */}
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 sm:mb-8 tracking-tight leading-[1.1] animate-fade-up">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white mb-6 sm:mb-8 tracking-tight leading-[1.1] animate-fade-up">
             Plan less,{' '}
-            <span className="text-gradient-cyan">Experience</span>
+            <span className="text-gradient-cyan-animated drop-shadow-[0_0_25px_rgba(34,211,238,0.25)]">Experience</span>
             {' '}more.
           </h1>
 
