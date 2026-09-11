@@ -5,7 +5,6 @@ import {
   User,
   Eye,
   EyeOff,
-  Zap,
   ArrowRight,
   ArrowLeft,
   ShieldCheck,
@@ -267,24 +266,6 @@ export default function LoginPage({
     }
   };
 
-  const handleDemoLogin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      const data = await api.demoLogin();
-      if (data && data.token) {
-        localStorage.setItem('navora_token', data.token);
-        if (onSuccess) onSuccess(data.user);
-      } else {
-        handleDirectAccess();
-      }
-    } catch (err) {
-      console.warn('Demo login network fallback:', err);
-      handleDirectAccess();
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative overflow-hidden font-sans">
@@ -389,43 +370,6 @@ export default function LoginPage({
               </div>
             )}
 
-            {/* ⚡ 1-Click Instant Demo Login (Hidden during OTP step) */}
-            {signupStep !== 'verify' && (
-              <div className="mb-5 relative z-10">
-                <button
-                  type="button"
-                  onClick={handleDemoLogin}
-                  disabled={loading}
-                  className="w-full relative group overflow-hidden rounded-2xl p-[1px] bg-gradient-to-r from-cyan-500/40 via-indigo-500/30 to-cyan-500/40 hover:from-cyan-400 hover:to-indigo-400 transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.1)] hover:shadow-[0_0_25px_rgba(34,211,238,0.25)] cursor-pointer text-left"
-                >
-                  <div className="flex items-center justify-between px-4 py-3 rounded-[15px] bg-[#0c1324]/90 backdrop-blur-md group-hover:bg-[#0e172c]/90 transition-colors">
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.25)] shrink-0">
-                        <Zap className="w-4 h-4 text-cyan-400 animate-pulse" />
-                      </span>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-spaceMono text-xs font-bold tracking-wider text-cyan-300">
-                            1-CLICK DEMO ACCESS
-                          </span>
-                          <span className="text-[10px] text-slate-400 hidden sm:inline">(Instant Login)</span>
-                        </div>
-                        <span className="block text-[10px] text-slate-400 font-mono tracking-tight">
-                          NO REGISTRATION REQUIRED FOR EVALUATION
-                        </span>
-                      </div>
-                    </div>
-
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 group-hover:bg-cyan-400 group-hover:text-black transition-all shrink-0">
-                      EXPRESS ➔
-                    </span>
-                  </div>
-                </button>
-              </div>
-            )}
-
-            {/* Glowing Divider */}
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mb-5" />
 
             {/* Success Notification */}
             {otpSuccessMsg && (

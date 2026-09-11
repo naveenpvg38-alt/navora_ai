@@ -61,7 +61,6 @@ function createFallbackSession(email, name = null) {
   let derivedName = name;
   if (!derivedName) {
     if (cleanEmail.includes('naveen')) derivedName = 'Naveen';
-    else if (cleanEmail.includes('demo')) derivedName = 'Alex Rivera';
     else derivedName = cleanEmail.split('@')[0];
   }
   const capitalizedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);

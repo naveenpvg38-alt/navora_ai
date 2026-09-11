@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Zap, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react';
+import { X, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react';
 import { api } from '../api';
 
 const InputField = ({ icon: Icon, type, placeholder, value, onChange, required }) => (
@@ -49,20 +49,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose, onSu
     }
   };
 
-  const handleDemoLogin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      const data = await api.demoLogin();
-      localStorage.setItem('navora_token', data.token);
-      onSuccess(data.user);
-      onClose();
-    } catch (err) {
-      setError(err.message || 'Demo login failed.');
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   return (
     <div
@@ -110,25 +97,6 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose, onSu
               ? 'Join to discover personalized itineraries and explore Tumkur District.'
               : 'Sign in to access your saved itineraries and personalized routes.'}
           </p>
-
-          {/* Demo Login */}
-          <button
-            type="button"
-            onClick={handleDemoLogin}
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3 rounded-xl cursor-pointer transition-all duration-200 mb-2 group bg-cyan-50 dark:bg-white/4 border border-cyan-200 dark:border-white/8 hover:border-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-500/10"
-          >
-            <Zap className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-            <span className="font-mono text-xs tracking-widest text-cyan-800 dark:text-slate-300 font-semibold">
-              ⚡ 1-CLICK DEMO ACCESS
-            </span>
-          </button>
-          <p className="text-center text-[10px] text-slate-500 dark:text-slate-600 font-mono mb-5">
-            FOR ACADEMIC EVALUATION ONLY
-          </p>
-
-          {/* Divider */}
-          <div className="divider-gradient mb-5" />
 
           {/* Error */}
           {error && (

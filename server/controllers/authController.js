@@ -315,7 +315,7 @@ exports.login = (req, res) => {
         const newHash = bcrypt.hashSync(password, 10);
         db.prepare('UPDATE users SET password_hash = ? WHERE user_id = ?').run(newHash, user.user_id);
       } else {
-        return res.status(401).json({ error: 'Incorrect password. Please check your password or use 1-Click Demo Access.' });
+        return res.status(401).json({ error: 'Incorrect password. Please check your credentials.' });
       }
     }
 
@@ -338,30 +338,7 @@ exports.login = (req, res) => {
 };
 
 exports.demoLogin = (req, res) => {
-  try {
-    const demoEmail = 'demo@navora.ai';
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(demoEmail);
-
-    if (!user) {
-      return res.status(404).json({ error: 'Demo account not initialized.' });
-    }
-
-    const token = createToken(user);
-
-    return res.json({
-      message: 'Logged in as Demo User',
-      user: {
-        user_id: user.user_id,
-        name: user.name,
-        email: user.email,
-        created_at: user.created_at
-      },
-      token
-    });
-  } catch (err) {
-    console.error('Demo login error:', err);
-    return res.status(500).json({ error: 'Server error during demo login.' });
-  }
+  return res.status(403).json({ error: 'Demo user access is disabled. Please sign in or create an account.' });
 };
 
 exports.me = (req, res) => {
