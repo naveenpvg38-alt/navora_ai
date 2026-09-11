@@ -26,15 +26,28 @@ export default function App() {
   // Check existing session on load
   useEffect(() => {
     const token = localStorage.getItem('navora_token');
-    if (token) {
-      api.getMe()
-        .then((res) => {
-          if (res.user) setUser(res.user);
-        })
-        .catch(() => {
-          localStorage.removeItem('navora_token');
-        });
+    if (!token || token.startsWith('mock_jwt_')) {
+      localStorage.removeItem('navora_token');
+      localStorage.removeItem('navora_user');
+      setUser(null);
+      return;
     }
+
+    api.getMe()
+      .then((res) => {
+        if (res && res.user) {
+          setUser(res.user);
+        } else {
+          localStorage.removeItem('navora_token');
+          localStorage.removeItem('navora_user');
+          setUser(null);
+        }
+      })
+      .catch(() => {
+        localStorage.removeItem('navora_token');
+        localStorage.removeItem('navora_user');
+        setUser(null);
+      });
   }, []);
 
   const [postAuthRedirect, setPostAuthRedirect] = useState(null);
@@ -73,6 +86,7 @@ export default function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('navora_token');
+    localStorage.removeItem('navora_user');
     setUser(null);
     setActiveView('home');
   };

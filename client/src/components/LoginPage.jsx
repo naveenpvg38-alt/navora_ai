@@ -116,22 +116,6 @@ export default function LoginPage({
     }
   };
 
-  const handleDirectAccess = () => {
-    setError('');
-    const targetEmail = (email || '').trim() || 'naveenpvg38@gmail.com';
-    const cleanName = targetEmail.toLowerCase().includes('naveen') ? 'Naveen' : targetEmail.split('@')[0];
-    const fallbackUser = {
-      user_id: 2,
-      name: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
-      email: targetEmail,
-      created_at: new Date().toISOString(),
-    };
-    const fallbackToken = 'mock_jwt_' + btoa(unescape(encodeURIComponent(JSON.stringify(fallbackUser))));
-    localStorage.setItem('navora_user', JSON.stringify(fallbackUser));
-    localStorage.setItem('navora_token', fallbackToken);
-    if (onSuccess) onSuccess(fallbackUser);
-  };
-
   // Step 1: Request Email Verification Code
   const handleSendVerificationCode = async (e) => {
     if (e) e.preventDefault();
@@ -198,9 +182,12 @@ export default function LoginPage({
 
       if (data && data.token) {
         localStorage.setItem('navora_token', data.token);
+        if (data.user) {
+          localStorage.setItem('navora_user', JSON.stringify(data.user));
+        }
         if (onSuccess) onSuccess(data.user);
       } else {
-        handleDirectAccess();
+        setError(data?.error || 'Verification failed. Please check the code.');
       }
     } catch (err) {
       setError(err.message || 'Verification failed. Please check the code.');
@@ -250,17 +237,19 @@ export default function LoginPage({
     setLoading(true);
 
     try {
-      const data = await api.login({ email, password });
+      const data = await api.login(email.trim().toLowerCase(), password);
 
       if (data && data.token) {
         localStorage.setItem('navora_token', data.token);
+        if (data.user) {
+          localStorage.setItem('navora_user', JSON.stringify(data.user));
+        }
         if (onSuccess) onSuccess(data.user);
       } else {
-        handleDirectAccess();
+        setError(data?.error || 'Invalid email or password.');
       }
     } catch (err) {
-      console.warn('Network issue caught, granting direct login access:', err);
-      handleDirectAccess();
+      setError(err.message || 'Invalid email or password.');
     } finally {
       setLoading(false);
     }

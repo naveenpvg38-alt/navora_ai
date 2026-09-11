@@ -56,30 +56,6 @@ async function handleResponse(res) {
   return data || {};
 }
 
-function createFallbackSession(email, name = null) {
-  const cleanEmail = (email || 'naveenpvg38@gmail.com').trim().toLowerCase();
-  let derivedName = name;
-  if (!derivedName) {
-    if (cleanEmail.includes('naveen')) derivedName = 'Naveen';
-    else derivedName = cleanEmail.split('@')[0];
-  }
-  const capitalizedName = derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
-  const fallbackUser = {
-    user_id: 2,
-    name: capitalizedName,
-    email: cleanEmail,
-    created_at: new Date().toISOString()
-  };
-  const fallbackToken = 'mock_jwt_' + btoa(unescape(encodeURIComponent(JSON.stringify(fallbackUser))));
-  localStorage.setItem('navora_user', JSON.stringify(fallbackUser));
-  localStorage.setItem('navora_token', fallbackToken);
-  return {
-    message: 'Access Granted',
-    token: fallbackToken,
-    user: fallbackUser
-  };
-}
-
 export const api = {
   // Auth & Email Verification
   sendOtp: async (email, name = '') => {
@@ -113,47 +89,34 @@ export const api = {
   },
 
   register: async (name, email, password) => {
-    try {
-      const res = await fetch(`${API_BASE}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
-      });
-      return await handleResponse(res);
-    } catch (err) {
-      console.warn('Backend register error, activating client session:', err.message);
-      return createFallbackSession(email, name);
-    }
+    const res = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    return await handleResponse(res);
   },
 
   login: async (email, password) => {
-    try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      return await handleResponse(res);
-    } catch (err) {
-      console.warn('Backend login error, activating client session:', err.message);
-      return createFallbackSession(email);
-    }
+    const res = await fetch(`${API_BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    return await handleResponse(res);
   },
 
   demoLogin: async () => {
-    try {
-      const res = await fetch(`${API_BASE}/auth/demo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      return await handleResponse(res);
-    } catch (err) {
-      console.warn('Backend demo error, activating demo session:', err.message);
-      return createFallbackSession('demo@navora.ai', 'Alex Rivera');
-    }
+    throw new Error('Demo login has been disabled.');
   },
 
   getMe: async () => {
+    const token = localStorage.getItem('navora_token');
+    if (!token || token.startsWith('mock_jwt_')) {
+      localStorage.removeItem('navora_token');
+      localStorage.removeItem('navora_user');
+      return { user: null };
+    }
     try {
       const res = await fetch(`${API_BASE}/auth/me`, {
         headers: { ...getAuthHeader() }
@@ -161,23 +124,15 @@ export const api = {
       const data = await handleResponse(res);
       if (data && data.user) {
         localStorage.setItem('navora_user', JSON.stringify(data.user));
+        return data;
       }
-      return data;
+      localStorage.removeItem('navora_token');
+      localStorage.removeItem('navora_user');
+      return { user: null };
     } catch (err) {
-      const cached = localStorage.getItem('navora_user');
-      if (cached) {
-        try {
-          return { user: JSON.parse(cached) };
-        } catch (e) {}
-      }
-      const token = localStorage.getItem('navora_token');
-      if (token && token.startsWith('mock_jwt_')) {
-        try {
-          const userStr = decodeURIComponent(escape(atob(token.replace('mock_jwt_', ''))));
-          return { user: JSON.parse(userStr) };
-        } catch (e) {}
-      }
-      return { user: { user_id: 2, name: 'Naveen', email: 'naveenpvg38@gmail.com' } };
+      localStorage.removeItem('navora_token');
+      localStorage.removeItem('navora_user');
+      return { user: null };
     }
   },
 
@@ -325,7 +280,7 @@ export const api = {
       });
       return await handleResponse(res);
     } catch (err) {
-      const user = JSON.parse(localStorage.getItem('navora_user') || '{"user_id":2,"name":"Naveen","email":"naveenpvg38@gmail.com"}');
+      const user = JSON.parse(localStorage.getItem('navora_user') || 'null');
       const saved = JSON.parse(localStorage.getItem('navora_saved_plans') || '[]');
       return {
         user,
