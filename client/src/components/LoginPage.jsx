@@ -330,33 +330,56 @@ export default function LoginPage({
           {/* ── RIGHT PANEL: Cyber Access Gateway (The Unique Login Form) ── */}
           <div className="lg:col-span-6 flex justify-center w-full">
             <div
-              className="w-full max-w-md rounded-3xl p-6 sm:p-8 relative overflow-hidden animate-fade-up bg-white dark:bg-gradient-to-br dark:from-[#151D30]/90 dark:to-[#0D1224]/95 border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-[0_30px_70px_-10px_rgba(0,0,0,0.8),0_0_40px_rgba(56,189,248,0.08)_inset]"
-              style={{
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
-              }}
+              className="w-full max-w-md rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 relative overflow-hidden animate-fade-up bg-[#09101f]/95 dark:bg-[#09101f]/95 border border-cyan-500/30 dark:border-cyan-400/40 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_35px_rgba(34,211,238,0.12)_inset] backdrop-blur-2xl text-white"
             >
+              {/* Luminous top scanline */}
+              <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_12px_#22d3ee]" />
+
+              {/* Ambient radial lighting orbs inside card */}
+              <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full bg-cyan-500/10 blur-[50px] pointer-events-none" />
+              <div className="absolute -bottom-20 -left-20 w-44 h-44 rounded-full bg-indigo-600/10 blur-[50px] pointer-events-none" />
+
               {/* Form header */}
-              <div className="text-center mb-6">
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-1.5">
-                  {mode === 'signup' ? 'Create Explorer Account' : 'Welcome Back'}
+              <div className="text-center mb-6 relative z-10">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 font-mono text-[10px] tracking-widest uppercase mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  <span>ACCESS GATEWAY // 256-BIT SSL</span>
+                </div>
+
+                <h2 className="font-clash text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+                  {mode === 'signup' ? (
+                    <>
+                      Create{' '}
+                      <span className="font-unbounded text-gradient-cyan-animated drop-shadow-[0_0_20px_rgba(34,211,238,0.3)] inline-block">
+                        Explorer
+                      </span>{' '}
+                      Account
+                    </>
+                  ) : (
+                    <>
+                      Welcome{' '}
+                      <span className="font-unbounded text-gradient-cyan-animated drop-shadow-[0_0_20px_rgba(34,211,238,0.3)] inline-block">
+                        Back
+                      </span>
+                    </>
+                  )}
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm">
+                <p className="text-slate-400 text-xs sm:text-[13px] leading-relaxed max-w-sm mx-auto">
                   {mode === 'signup'
                     ? 'Join to generate, customize, and save your Tumkur outings.'
                     : 'Sign in to access your saved itineraries and personalized routes.'}
                 </p>
               </div>
 
-              {/* Fluid Mode Switcher Pill */}
-              <div className="flex rounded-xl p-1 bg-slate-100 dark:bg-white/4 border border-slate-200 dark:border-white/8 mb-6">
+              {/* Futuristic Mode Switcher Pill */}
+              <div className="flex rounded-2xl p-1 bg-[#060a14]/90 border border-cyan-500/20 shadow-inner mb-5 relative z-10">
                 <button
                   type="button"
                   onClick={() => { setMode('login'); setError(''); }}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer ${
                     mode === 'login'
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_0_18px_rgba(34,211,238,0.35)] scale-[1.01]'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   Sign In
@@ -364,49 +387,65 @@ export default function LoginPage({
                 <button
                   type="button"
                   onClick={() => { setMode('signup'); setError(''); }}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                  className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all duration-200 cursor-pointer ${
                     mode === 'signup'
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_0_18px_rgba(34,211,238,0.35)] scale-[1.01]'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   Create Account
                 </button>
               </div>
 
-              {/* ⚡ 1-Click Instant Demo Button */}
-              <button
-                type="button"
-                onClick={handleDemoLogin}
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-2.5 py-3 rounded-xl cursor-pointer transition-all duration-300 mb-2 group relative overflow-hidden bg-cyan-50 dark:bg-cyan-500/10 border border-cyan-200 dark:border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-500/15"
-              >
-                <Zap className="w-4 h-4 text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-transform" />
-                <span className="font-mono text-xs font-semibold tracking-wider text-cyan-700 dark:text-cyan-300">
-                  ⚡ 1-CLICK DEMO ACCESS
-                </span>
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline">(Instant Login)</span>
-              </button>
-              <p className="text-center text-[10px] text-slate-500 font-mono mb-5">
-                NO REGISTRATION REQUIRED FOR EVALUATION
-              </p>
+              {/* ⚡ Redesigned 1-Click Instant Demo Access Express Card */}
+              <div className="mb-5 relative z-10">
+                <button
+                  type="button"
+                  onClick={handleDemoLogin}
+                  disabled={loading}
+                  className="w-full relative group overflow-hidden rounded-2xl p-[1px] bg-gradient-to-r from-cyan-500/40 via-indigo-500/30 to-cyan-500/40 hover:from-cyan-400 hover:to-indigo-400 transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.1)] hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] cursor-pointer text-left"
+                >
+                  <div className="flex items-center justify-between px-4 py-3 rounded-[15px] bg-[#0c1324]/90 backdrop-blur-md group-hover:bg-[#0e172c]/90 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.25)] shrink-0">
+                        <Zap className="w-4 h-4 text-cyan-400 animate-pulse" />
+                      </span>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-spaceMono text-xs font-bold tracking-wider text-cyan-300">
+                            1-CLICK DEMO ACCESS
+                          </span>
+                          <span className="text-[10px] text-slate-400 hidden sm:inline">(Instant Login)</span>
+                        </div>
+                        <span className="block text-[10px] text-slate-400 font-mono tracking-tight">
+                          NO REGISTRATION REQUIRED FOR EVALUATION
+                        </span>
+                      </div>
+                    </div>
 
-              {/* Gradient Divider */}
-              <div className="divider-gradient mb-5" />
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 group-hover:bg-cyan-400 group-hover:text-black transition-all shrink-0">
+                      EXPRESS ➔
+                    </span>
+                  </div>
+                </button>
+              </div>
+
+              {/* Glowing Divider */}
+              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mb-5" />
 
               {/* Error Alert */}
               {error && (
                 <div
-                  className="mb-4 p-3 rounded-xl flex items-start sm:items-center gap-2.5 text-xs text-rose-600 dark:text-rose-300 animate-fade-in bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/25"
+                  className="mb-4 p-3.5 rounded-2xl flex items-start sm:items-center gap-2.5 text-xs text-rose-300 animate-fade-in bg-rose-500/10 border border-rose-500/30"
                 >
-                  <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-500 dark:text-rose-400 mt-0.5 sm:mt-0" />
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-400 mt-0.5 sm:mt-0" />
                   <div className="flex-1 flex flex-wrap items-center justify-between gap-1">
                     <span>{error}</span>
                     {error.toLowerCase().includes('create account') && (
                       <button
                         type="button"
                         onClick={() => { setMode('signup'); setError(''); }}
-                        className="text-cyan-600 dark:text-cyan-300 underline font-semibold hover:text-cyan-700 dark:hover:text-white cursor-pointer ml-1 text-xs"
+                        className="text-cyan-300 underline font-semibold hover:text-white cursor-pointer ml-1 text-xs"
                       >
                         Click here to register →
                       </button>
@@ -415,67 +454,78 @@ export default function LoginPage({
                 </div>
               )}
 
-              {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Form Inputs */}
+              <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1.5 ml-1">
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <User className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <div className="flex items-center justify-between mb-1.5 ml-1">
+                      <label className="text-[11px] font-mono uppercase tracking-wider text-cyan-300/80 font-bold flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                        Full Name
+                      </label>
+                      <span className="text-[10px] font-mono text-slate-500">REQUIRED</span>
+                    </div>
+                    <div className="relative rounded-2xl bg-[#0c1426]/90 border border-cyan-500/25 focus-within:border-cyan-400 focus-within:shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all duration-200">
+                      <User className="w-4 h-4 text-cyan-400/70 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <input
                         type="text"
                         required
                         placeholder="e.g. Naveen Kumar"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-200 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 focus:border-cyan-500"
+                        className="w-full pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-500 bg-transparent outline-none font-medium"
                       />
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1.5 ml-1">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <div className="flex items-center justify-between mb-1.5 ml-1">
+                    <label className="text-[11px] font-mono uppercase tracking-wider text-cyan-300/80 font-bold flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Email Address
+                    </label>
+                    <span className="text-[10px] font-mono text-slate-500">REQUIRED</span>
+                  </div>
+                  <div className="relative rounded-2xl bg-[#0c1426]/90 border border-cyan-500/25 focus-within:border-cyan-400 focus-within:shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all duration-200">
+                    <Mail className="w-4 h-4 text-cyan-400/70 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="email"
                       required
                       placeholder="you@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-11 pr-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-200 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 focus:border-cyan-500"
+                      className="w-full pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-500 bg-transparent outline-none font-medium"
                     />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1.5 ml-1">
-                    <label className="text-xs font-medium text-slate-700 dark:text-slate-400">Password</label>
+                    <label className="text-[11px] font-mono uppercase tracking-wider text-cyan-300/80 font-bold flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Password
+                    </label>
                     {mode === 'login' && (
-                      <span className="text-[11px] text-cyan-600 dark:text-cyan-400/80 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors cursor-pointer">
+                      <span className="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 hover:underline cursor-pointer">
                         Forgot password?
                       </span>
                     )}
                   </div>
-                  <div className="relative">
-                    <Lock className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <div className="relative rounded-2xl bg-[#0c1426]/90 border border-cyan-500/25 focus-within:border-cyan-400 focus-within:shadow-[0_0_20px_rgba(34,211,238,0.25)] transition-all duration-200">
+                    <Lock className="w-4 h-4 text-cyan-400/70 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       required
                       placeholder="Min. 6 characters"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-11 pr-11 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-200 rounded-xl bg-slate-50 dark:bg-white/4 border border-slate-200 dark:border-white/8 focus:border-cyan-500"
+                      className="w-full pl-11 pr-11 py-3.5 text-sm text-white placeholder-slate-500 bg-transparent outline-none font-medium"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300 transition-colors cursor-pointer p-1"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyan-300 p-1.5 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
                       title={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -483,29 +533,36 @@ export default function LoginPage({
                   </div>
                 </div>
 
-                {/* Submit button */}
+                {/* Submit button with shimmer sweep */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-primary w-full !py-3.5 !rounded-xl justify-center cursor-pointer mt-2 group shadow-glow-sm hover:shadow-glow-md transition-all"
+                  className="w-full py-4 rounded-2xl font-clash font-bold text-sm tracking-wide text-white flex items-center justify-center gap-2 relative overflow-hidden group cursor-pointer transition-all duration-300 mt-3"
+                  style={{
+                    background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 50%, #6366F1 100%)',
+                    boxShadow: '0 0 25px rgba(6,182,212,0.35), 0 8px 20px -6px rgba(59,130,246,0.5)',
+                  }}
                 >
+                  {/* Shimmer light sweep */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
+
                   {loading ? (
                     <span className="flex items-center gap-2">
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Processing...
+                      <span>Authenticating...</span>
                     </span>
                   ) : (
                     <>
-                      <span>{mode === 'signup' ? 'Create Account' : 'Sign In'}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span>{mode === 'signup' ? 'Create Explorer Account' : 'Sign In'}</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
                     </>
                   )}
                 </button>
               </form>
 
               {/* Bottom toggle / disclaimer */}
-              <div className="mt-6 pt-5 border-t border-slate-200 dark:border-white/6 text-center space-y-2">
-                <p className="text-xs text-slate-600 dark:text-slate-400">
+              <div className="mt-6 pt-5 border-t border-cyan-500/20 text-center space-y-2 relative z-10">
+                <p className="text-xs text-slate-400">
                   {mode === 'signup' ? 'Already have an account? ' : "Don't have an account? "}
                   <button
                     type="button"
@@ -513,7 +570,7 @@ export default function LoginPage({
                       setMode(mode === 'signup' ? 'login' : 'signup');
                       setError('');
                     }}
-                    className="text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-semibold underline underline-offset-2 cursor-pointer ml-1"
+                    className="text-cyan-400 hover:text-cyan-300 font-bold underline underline-offset-2 cursor-pointer ml-1"
                   >
                     {mode === 'signup' ? 'Sign In' : 'Create Account'}
                   </button>
