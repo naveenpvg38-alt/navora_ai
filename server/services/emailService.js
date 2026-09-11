@@ -120,12 +120,41 @@ function getVerificationEmailHtml(name, otp) {
  * @param {string} email
  * @param {string} name
  * @param {string} otp 6-digit numeric code
- * @returns {Promise<{ success: boolean, simulated: boolean }>}
  */
 async function sendVerificationEmail(email, name, otp) {
+  // 1. Check for Resend API Key (modern transactional email service)
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const fromAddr = process.env.EMAIL_FROM || 'NAVORA AI <onboarding@resend.dev>';
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: fromAddr,
+          to: [email],
+          subject: `Your NAVORA AI Verification Code: ${otp}`,
+          html: getVerificationEmailHtml(name, otp)
+        })
+      });
+
+      if (res.ok) {
+        console.log(`[EMAIL RESEND] Verification code successfully sent to ${email}`);
+        return { success: true, simulated: false };
+      } else {
+        const errorText = await res.text();
+        console.warn(`[EMAIL RESEND WARNING] (${errorText})`);
+      }
+    } catch (err) {
+      console.warn(`[EMAIL RESEND ERROR] ${err.message}`);
+    }
+  }
+
+  // 2. Check for SMTP / Gmail Transporter
   const transporter = createTransporter();
 
-  // If real transporter is configured, attempt sending email
   if (transporter) {
     try {
       const fromAddress = process.env.SMTP_FROM || `"NAVORA AI" <${process.env.SMTP_USER || process.env.GMAIL_USER}>`;
@@ -137,7 +166,7 @@ async function sendVerificationEmail(email, name, otp) {
         html: getVerificationEmailHtml(name, otp)
       });
 
-      console.log(`[EMAIL] Verification code successfully sent to ${email}`);
+      console.log(`[EMAIL SMTP] Verification code successfully sent to ${email}`);
       return { success: true, simulated: false };
     } catch (err) {
       console.warn(`[EMAIL WARNING] SMTP send failed (${err.message}). Falling back to simulation mode.`);
