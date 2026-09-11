@@ -111,7 +111,7 @@ export default function AuthModal({ isOpen, initialMode = 'login', onClose, onSu
             {mode === 'signup' && (
               <div>
                 <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1.5 ml-1">Full Name</label>
-                <InputField icon={User} type="text" placeholder="e.g. Naveen Kumar"
+                <InputField icon={User} type="text" placeholder="e.g. Spiderman"
                   value={name} onChange={(e) => setName(e.target.value)} required />
               </div>
             )}

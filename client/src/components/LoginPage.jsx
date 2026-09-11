@@ -524,7 +524,7 @@ export default function LoginPage({
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Naveen Kumar"
+                        placeholder="e.g. Spiderman"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full pl-11 pr-4 py-3 text-sm text-white placeholder-slate-500 bg-transparent outline-none font-medium"
