@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAVORA AI · Explorer Signup & Access Gateway</title>
+
+  <!-- Typography: Plus Jakarta Sans, Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── EARTHY DESIGN SYSTEM VARIABLES ──────────────────────────────── */
+    :root {
+      --earth-terracotta: #C25E3E;
+      --earth-terracotta-hover: #A8482A;
+      --earth-sand: #F7F3EB;
+      --earth-sand-dark: #EFE7DA;
+      --earth-forest: #2A4736;
+      --earth-deep-green: #1E3A2B;
+      --earth-amber: #D97706;
+      --earth-gold: #EAB308;
+      --earth-text-primary: #1C1917;
+      --earth-text-muted: #6B635B;
+      --earth-border: rgba(194, 94, 62, 0.18);
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-border: rgba(194, 94, 62, 0.20);
+      --glass-shadow: 0 24px 60px -12px rgba(42, 71, 54, 0.15), 0 0 1px rgba(0, 0, 0, 0.08);
+      --input-bg: rgba(247, 243, 235, 0.75);
+      --input-border: rgba(194, 94, 62, 0.22);
+    }
+
+    /* Dark Mode (Obsidian Forest & Terracotta) */
+    html.dark {
+      --earth-terracotta: #E07A5F;
+      --earth-terracotta-hover: #F28C73;
+      --earth-sand: #121815;
+      --earth-sand-dark: #18211D;
+      --earth-forest: #3E6B48;
+      --earth-deep-green: #2A4736;
+      --earth-amber: #F59E0B;
+      --earth-gold: #FBBF24;
+      --earth-text-primary: #FAF8F5;
+      --earth-text-muted: #A8A29E;
+      --earth-border: rgba(255, 255, 255, 0.12);
+      --glass-bg: rgba(20, 27, 23, 0.84);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(224, 122, 95, 0.08);
+      --input-bg: rgba(255, 255, 255, 0.05);
+      --input-border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: var(--earth-sand);
+      color: var(--earth-text-primary);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      user-select: none;
+    }
+
+    /* ── FULL-BLEED BACKGROUND ARTWORK & ATMOSPHERE ─────────────────── */
+    .backdrop-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events-none;
+      z-index: 1;
+    }
+
+    .ambient-sun {
+      position: absolute;
+      top: -15%;
+      left: -10%;
+      width: 65vw;
+      height: 65vw;
+      max-width: 900px;
+      max-height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(194, 94, 62, 0.14) 45%, transparent 70%);
+      filter: blur(90px);
+      animation: ambientDrift 20s ease-in-out infinite alternate;
+    }
+
+    html.dark .ambient-sun {
+      background: radial-gradient(circle, rgba(224, 122, 95, 0.18) 0%, rgba(42, 71, 54, 0.08) 55%, transparent 75%);
+    }
+
+    .ambient-forest {
+      position: absolute;
+      bottom: -20%;
+      right: -10%;
+      width: 60vw;
+      height: 60vw;
+      max-width: 800px;
+      max-height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42, 71, 54, 0.18) 0%, rgba(217, 119, 6, 0.10) 50%, transparent 70%);
+      filter: blur(100px);
+    }
+
+    html.dark .ambient-forest {
+      background: radial-gradient(circle, rgba(42, 71, 54, 0.3) 0%, rgba(224, 122, 95, 0.1) 60%, transparent 75%);
+    }
+
+    @keyframes ambientDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.05); }
+      100% { transform: translate(-20px, 25px) scale(0.96); }
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────────────── */
+    header {
+      position: relative;
+      z-index: 30;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--earth-text-primary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      transform: scale(1.04);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-wordmark {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--earth-text-primary);
+    }
+
+    .brand-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--earth-terracotta);
+      box-shadow: 0 0 10px var(--earth-terracotta);
+      animation: pulseDot 2.2s infinite;
+    }
+
+    .brand-ai {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--earth-terracotta) 0%, var(--earth-amber) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding-left: 10px;
+      margin-left: 4px;
+      border-left: 1px solid var(--earth-border);
+      color: var(--earth-terracotta);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .theme-toggle-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--earth-text-primary);
+      transition: all 0.25s ease;
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.08);
+      color: var(--earth-amber);
+    }
+
+    .guest-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--earth-terracotta);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .guest-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ── MAIN CONTENT GRID (1920x1080 OPTIMIZED) ────────────────────── */
+    main {
+      position: relative;
+      z-index: 20;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 48px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* ── LEFT SIDE COMPANION / CORNER MATRIX ────────────────────────── */
+    .left-companion {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      animation: cardEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .matrix-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--earth-forest);
+      width: fit-content;
+    }
+
+    html.dark .matrix-badge {
+      color: var(--earth-gold);
+    }
+
+    .matrix-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.75rem, 4.5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--earth-text-primary);
+    }
+
+    .matrix-headline span {
+      background: linear-gradient(135deg, var(--earth-terracotta) 0%, var(--earth-amber) 60%, var(--earth-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .matrix-desc {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--earth-text-muted);
+      max-width: 480px;
+    }
+
+    /* Live Ticker Capsule */
+    .ticker-capsule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: 16px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+    }
+
+    .ticker-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--earth-terracotta);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .ticker-content {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--earth-text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Rotating Carousel / Card-Stack */
+    .stack-container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      height: 220px;
+      margin-top: 6px;
+    }
+
+    .stack-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.25);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .stack-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .stack-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.3) 55%, transparent 100%);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #ffffff;
+    }
+
+    .stack-card.card-depth-2 {
+      transform: translateY(18px) scale(0.90);
+      opacity: 0.45;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .stack-card.card-depth-1 {
+      transform: translateY(9px) scale(0.95);
+      opacity: 0.75;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .stack-card.card-active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      z-index: 3;
+    }
+
+    /* Destination Chips */
+    .destination-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip-btn {
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--earth-text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip-btn:hover, .chip-btn.active {
+      background: var(--earth-terracotta);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* ── RIGHT FLOATING CENTERED GLASS-MORPHISM FORM CARD ──────────── */
+    .form-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border-radius: 36px;
+      padding: 44px 48px;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      animation: cardEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .form-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--earth-text-primary);
+      margin-bottom: 6px;
+    }
+
+    .form-subtitle {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--earth-text-muted);
+    }
+
+    /* Segmented Mode Tabs */
+    .tabs-nav {
+      display: flex;
+      padding: 4px;
+      border-radius: 18px;
+      background: var(--input-bg);
+      border: 1px solid var(--earth-border);
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--earth-text-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--earth-forest);
+      color: #FAF8F5;
+      box-shadow: 0 4px 14px -2px rgba(42, 71, 54, 0.3);
+    }
+
+    html.dark .tab-btn.active {
+      background: var(--earth-terracotta);
+      color: #121815;
+    }
+
+    /* Input Groups */
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--earth-text-primary);
+      margin-bottom: 6px;
+      margin-left: 4px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      color: var(--earth-text-muted);
+      pointer-events-none;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      font-size: 14px;
+      border-radius: 18px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--earth-text-primary);
+      outline: none;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus {
+      border-color: var(--earth-terracotta);
+      box-shadow: 0 0 0 3px rgba(194, 94, 62, 0.15);
+    }
+
+    .pwd-toggle-btn {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--earth-text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(135deg, #C25E3E 0%, #D97706 100%);
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px -5px rgba(194, 94, 62, 0.4);
+      transition: all 0.25s ease;
+      margin-top: 8px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px -4px rgba(194, 94, 62, 0.5);
+    }
+
+    /* Subtle 1-Click Demo Access */
+    .demo-access-row {
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .demo-link-btn {
+      background: none;
+      border: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--earth-terracotta);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .demo-link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .demo-note {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--earth-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Bottom Switcher & Footer */
+    .form-footer {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--earth-border);
+      text-align: center;
+    }
+
+    .switch-mode-text {
+      font-size: 12.5px;
+      color: var(--earth-text-muted);
+    }
+
+    .switch-mode-link {
+      font-weight: 700;
+      color: var(--earth-terracotta);
+      text-decoration: underline;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .disclaimer-text {
+      font-size: 11px;
+      color: var(--earth-text-muted);
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+
+    /* ── ENTRANCE ANIMATIONS ────────────────────────────────────────── */
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.35); opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ADAPTATIONS ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .left-companion {
+        order: 2;
+        text-align: center;
+        align-items: center;
+      }
+      .form-card {
+        order: 1;
+        padding: 36px 28px;
+      }
+      .destination-chips {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FULL-BLEED BACKGROUND ARTWORK & ATMOSPHERE -->
+  <div class="backdrop-canvas">
+    <div class="ambient-sun"></div>
+    <div class="ambient-forest"></div>
+
+    <!-- Tumkur Landscape Silhouette & Topography SVG -->
+    <svg class="backdrop-canvas" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="terracotta-ridge" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#C25E3E" stop-opacity="0.12" />
+          <stop offset="100%" stop-color="#F7F3EB" stop-opacity="0.0" />
+        </linearGradient>
+        <linearGradient id="forest-hills" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#2A4736" stop-opacity="0.16" />
+          <stop offset="100%" stop-color="#F7F3EB" stop-opacity="0.0" />
+        </linearGradient>
+      </defs>
+
+      <!-- Contour lines -->
+      <path d="M -100,280 Q 400,120 900,290 T 1950,220" fill="none" stroke="rgba(194,94,62,0.12)" stroke-width="1.5" />
+      <path d="M -100,340 Q 380,180 880,350 T 1950,280" fill="none" stroke="rgba(194,94,62,0.1)" stroke-width="1.5" />
+      <path d="M -100,400 Q 360,240 860,410 T 1950,340" fill="none" stroke="rgba(194,94,62,0.08)" stroke-width="1.5" />
+
+      <!-- Devarayanadurga & Madhugiri Hill Silhouettes -->
+      <path d="M 0,1080 L 0,820 Q 280,680 520,760 T 960,650 Q 1280,530 1520,680 T 1920,620 L 1920,1080 Z" fill="url(#forest-hills)" />
+      <path d="M 180,1080 L 180,880 Q 420,740 700,820 T 1250,710 Q 1550,620 1920,760 L 1920,1080 Z" fill="url(#terracotta-ridge)" />
+
+      <!-- Dotted Trail -->
+      <path d="M 120,950 Q 650,420 1480,310" fill="none" stroke="rgba(194,94,62,0.25)" stroke-width="2" stroke-dasharray="6 8" />
+    </svg>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <!-- Back to Home Link -->
+    <a href="/" class="nav-btn" id="backToHome">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Back to Home</span>
+    </a>
+
+    <!-- NAVORA • AI Logo with TUMKUR Tag -->
+    <div class="brand-cluster">
+      <span class="brand-wordmark">NAVORA</span>
+      <span class="brand-dot"></span>
+      <span class="brand-ai">AI</span>
+      <span class="brand-tag">TUMKUR</span>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="header-right">
+      <button class="theme-toggle-btn" id="themeToggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+
+      <a href="/" class="guest-link">Explore as Guest →</a>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTENT -->
+  <main>
+    <div class="layout-grid">
+
+      <!-- LEFT SIDE COMPANION / CORNER MATRIX -->
+      <div class="left-companion">
+        <!-- Badge: Tumkur Explorer Access Matrix -->
+        <div class="matrix-badge">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--earth-terracotta);"></span>
+          <span>Tumkur Explorer Access Matrix</span>
+        </div>
+
+        <!-- Headline: Plan less, Experience more. -->
+        <h1 class="matrix-headline">
+          Plan less, <br />
+          <span>Experience more.</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="matrix-desc">
+          Unlock personalized, zero-backtracking outing itineraries powered by AI, calibrated exclusively for Tumkur’s historic monolithic forts, forest springs, and food trails.
+        </p>
+
+        <!-- Live Ticker: Discovering Kyathsandra Thatte Idli Trail -->
+        <div class="ticker-capsule">
+          <div class="ticker-label">
+            <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--earth-terracotta); animation: pulseDot 2s infinite;"></span>
+            <span>DISCOVERING:</span>
+          </div>
+          <div class="ticker-content" id="liveTickerText">
+            🍽️ Kyathsandra Thatte Idli Trail
+          </div>
+        </div>
+
+        <!-- Small Rotating Carousel / Card-Stack Preview of Destination Photos -->
+        <div class="stack-container" id="stackContainer">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Destination Chips: Nugiri Fort, Namada Chilume, Amanikere Lake, Siddaganga, etc. -->
+        <div class="destination-chips" id="destinationChips">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- RIGHT FLOATING CENTERED GLASS-MORPHISM FORM CARD -->
+      <div class="form-container">
+        <div class="form-card">
+
+          <div class="form-header">
+            <!-- Title: Create Explorer Account -->
+            <h2 class="form-title" id="formMainTitle">Create Explorer Account</h2>
+            <!-- Subtitle -->
+            <p class="form-subtitle" id="formMainSubtitle">
+              Join to generate, customize, and save your Tumkur outings.
+            </p>
+          </div>
+
+          <!-- Tabs: Sign In / Create Account -->
+          <div class="tabs-nav">
+            <button class="tab-btn" id="tabSignIn">Sign In</button>
+            <button class="tab-btn active" id="tabCreateAccount">Create Account</button>
+          </div>
+
+          <!-- Form Fields -->
+          <form id="authForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <!-- Full Name Field (Signup) -->
+            <div class="form-group" id="nameGroup">
+              <label class="form-label" for="fullName">Full Name</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <input class="form-input" type="text" id="fullName" placeholder="e.g. Naveen Kumar" />
+              </div>
+            </div>
+
+            <!-- Email Address Field -->
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <input class="form-input" type="email" id="email" required placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input class="form-input" type="password" id="password" required placeholder="Min. 6 characters" />
+                <button type="button" class="pwd-toggle-btn" id="togglePassword" aria-label="Toggle Password Visibility">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit Button: Create Account -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <span id="submitBtnText">Create Account</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Subtle 1-Click Demo Access Link -->
+          <div class="demo-access-row">
+            <button type="button" class="demo-link-btn" onclick="handleDemoLogin()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span>1-Click Demo Access (Instant Login)</span>
+            </button>
+            <span class="demo-note">No registration required for evaluation</span>
+          </div>
+
+          <!-- Bottom Switcher: Already have an account? Sign In -->
+          <div class="form-footer">
+            <p class="switch-mode-text" id="switchModePrompt">
+              Already have an account?
+              <span class="switch-mode-link" id="switchModeLink" onclick="toggleAuthMode()">Sign In</span>
+            </p>
+
+            <!-- Terms & Privacy Footer -->
+            <p class="disclaimer-text">
+              By continuing, you agree to NAVORA AI’s Terms of Use and Tumkur District Privacy Protocol.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer style="position: relative; z-index: 30; text-align: center; padding: 14px; font-size: 11px; color: var(--earth-text-muted);">
+    NAVORA AI · Tumkur District Explorer Edition
+  </footer>
+
+  <!-- SCRIPT FOR CARD-STACK ROTATION, THEME TOGGLE & MODE SWITCH -->
+  <script>
+    const DESTINATIONS = [
+      {
+        id: 'ddhills',
+        emoji: '⛰️',
+        title: 'Devarayanadurga Peak Sunrise (1,204m)',
+        shortTitle: 'Devarayanadurga',
+        tag: 'Monolithic Forest Trek',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'kyathsandra',
+        emoji: '🍽️',
+        title: 'Kyathsandra Thatte Idli Trail',
+        shortTitle: 'Thatte Idli',
+        tag: 'Legendary Breakfast',
+        image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'madhugiri',
+        emoji: '🏰',
+        title: 'Madhugiri Rock Fortress',
+        shortTitle: 'Madhugiri Fort',
+        tag: "Asia's 2nd Largest Monolith",
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'namada',
+        emoji: '🦌',
+        title: 'Namada Chilume Spring',
+        shortTitle: 'Namada Chilume',
+        tag: 'Sacred Forest Sanctuary',
+        image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'amanikere',
+        emoji: '🏞️',
+        title: 'Amanikere Lake Promenade',
+        shortTitle: 'Amanikere Lake',
+        tag: 'Sunset Waterfront',
+        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'siddaganga',
+        emoji: '🛕',
+        title: 'Siddaganga Mutt Kshetra',
+        shortTitle: 'Siddaganga',
+        tag: 'Spiritual Hermitage',
+        image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'kaidala',
+        emoji: '🏛️',
+        title: 'Kaidala Chennakeshava Temple',
+        shortTitle: 'Kaidala Temple',
+        tag: 'Hoysala Architecture',
+        image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=700&q=80',
+      },
+      {
+        id: 'markonahalli',
+        emoji: '🌊',
+        title: 'Markonahalli Siphon Dam',
+        shortTitle: 'Markonahalli Dam',
+        tag: 'Hydro Wonder',
+        image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=700&q=80',
+      }
+    ];
+
+    let activeIdx = 1; // Start with Thatte Idli as requested
+    let currentMode = 'signup'; // 'signup' | 'login'
+
+    // Render Destination Stack
+    const stackContainer = document.getElementById('stackContainer');
+    const destinationChips = document.getElementById('destinationChips');
+    const liveTicker = document.getElementById('liveTickerText');
+
+    function renderStack() {
+      stackContainer.innerHTML = '';
+      const total = DESTINATIONS.length;
+
+      // Render 3 cards: depth 2, depth 1, active
+      const indices = [
+        { idx: (activeIdx + 2) % total, cls: 'card-depth-2' },
+        { idx: (activeIdx + 1) % total, cls: 'card-depth-1' },
+        { idx: activeIdx, cls: 'card-active' }
+      ];
+
+      indices.forEach(item => {
+        const d = DESTINATIONS[item.idx];
+        const card = document.createElement('div');
+        card.className = `stack-card ${item.cls}`;
+        card.innerHTML = `
+          <img src="${d.image}" alt="${d.title}" />
+          <div class="overlay">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 11px; padding: 4px 10px; border-radius: 9999px; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); font-family: 'JetBrains Mono', monospace;">
+                ${d.emoji} ${d.tag}
+              </span>
+              <span style="font-size: 11px; opacity: 0.85;">Tumkur, Karnataka</span>
+            </div>
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;">${d.title}</h3>
+            </div>
+          </div>
+        `;
+        if (item.cls === 'card-active') {
+          card.onclick = rotateNext;
+        }
+        stackContainer.appendChild(card);
+      });
+
+      // Update Ticker
+      const current = DESTINATIONS[activeIdx];
+      liveTicker.textContent = `${current.emoji} ${current.title}`;
+
+      // Update Chips
+      renderChips();
+    }
+
+    function renderChips() {
+      destinationChips.innerHTML = '';
+      DESTINATIONS.forEach((d, i) => {
+        const btn = document.createElement('button');
+        btn.className = `chip-btn ${i === activeIdx ? 'active' : ''}`;
+        btn.innerHTML = `${d.emoji} ${d.shortTitle}`;
+        btn.onclick = () => {
+          activeIdx = i;
+          renderStack();
+        };
+        destinationChips.appendChild(btn);
+      });
+    }
+
+    function rotateNext() {
+      activeIdx = (activeIdx + 1) % DESTINATIONS.length;
+      renderStack();
+    }
+
+    // Auto rotate every 5.5 seconds
+    setInterval(rotateNext, 5500);
+    renderStack();
+
+    // ── AUTH MODE SWITCH LOGIC ──────────────────────────────────────────
+    const tabSignIn = document.getElementById('tabSignIn');
+    const tabCreateAccount = document.getElementById('tabCreateAccount');
+    const formTitle = document.getElementById('formMainTitle');
+    const formSubtitle = document.getElementById('formMainSubtitle');
+    const nameGroup = document.getElementById('nameGroup');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const switchPrompt = document.getElementById('switchModePrompt');
+
+    function setAuthMode(mode) {
+      currentMode = mode;
+      if (mode === 'login') {
+        tabSignIn.classList.add('active');
+        tabCreateAccount.classList.remove('active');
+        formTitle.textContent = 'Welcome Back';
+        formSubtitle.textContent = 'Sign in to access your saved itineraries and personalized routes.';
+        nameGroup.style.display = 'none';
+        submitBtnText.textContent = 'Sign In';
+        switchPrompt.innerHTML = `Don't have an account? <span class="switch-mode-link" onclick="toggleAuthMode()">Create Account</span>`;
+      } else {
+        tabCreateAccount.classList.add('active');
+        tabSignIn.classList.remove('active');
+        formTitle.textContent = 'Create Explorer Account';
+        formSubtitle.textContent = 'Join to generate, customize, and save your Tumkur outings.';
+        nameGroup.style.display = 'block';
+        submitBtnText.textContent = 'Create Account';
+        switchPrompt.innerHTML = `Already have an account? <span class="switch-mode-link" onclick="toggleAuthMode()">Sign In</span>`;
+      }
+    }
+
+    tabSignIn.onclick = () => setAuthMode('login');
+    tabCreateAccount.onclick = () => setAuthMode('signup');
+    window.toggleAuthMode = () => setAuthMode(currentMode === 'signup' ? 'login' : 'signup');
+
+    // ── THEME TOGGLE ───────────────────────────────────────────────────
+    const themeBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    const sunSvg = `<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+    const moonSvg = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+
+    themeBtn.onclick = () => {
+      root.classList.toggle('dark');
+      const isDark = root.classList.contains('dark');
+      document.getElementById('themeIcon').innerHTML = isDark ? moonSvg : sunSvg;
+    };
+
+    // Password visibility toggle
+    const togglePwd = document.getElementById('togglePassword');
+    const pwdInput = document.getElementById('password');
+    togglePwd.onclick = () => {
+      const isPassword = pwdInput.type === 'password';
+      pwdInput.type = isPassword ? 'text' : 'password';
+    };
+
+    // Form submission & Demo login handler
+    window.handleFormSubmit = () => {
+      alert(`Success! Logged in as Tumkur Explorer (${currentMode === 'signup' ? 'New Account Created' : 'Authenticated'}).`);
+      window.location.href = '/';
+    };
+
+    window.handleDemoLogin = () => {
+      alert('1-Click Demo Access granted! Redirecting to NAVORA AI planner...');
+      window.location.href = '/';
+    };
+  </script>
+</body>
+</html>
