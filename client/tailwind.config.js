@@ -26,13 +26,16 @@ export default {
         }
       },
       fontFamily: {
-        display: ['"Outfit"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        outfit:  ['"Outfit"', 'sans-serif'],
-        space:   ['"Space Grotesk"', 'sans-serif'],
-        urbanist:['"Urbanist"', 'sans-serif'],
-        sans:    ['"Poppins"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-        mono:    ['"JetBrains Mono"', 'Menlo', 'monospace'],
-        poppins: ['"Poppins"', 'sans-serif'],
+        unbounded: ['"Unbounded"', 'sans-serif'],
+        clash:     ['"Clash Display"', '"Outfit"', 'sans-serif'],
+        spaceMono: ['"Space Mono"', '"JetBrains Mono"', 'monospace'],
+        display:   ['"Clash Display"', '"Outfit"', '"Plus Jakarta Sans"', 'sans-serif'],
+        outfit:    ['"Outfit"', 'sans-serif'],
+        space:     ['"Space Grotesk"', 'sans-serif'],
+        urbanist:  ['"Urbanist"', 'sans-serif'],
+        sans:      ['"Space Grotesk"', '"Poppins"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono:      ['"Space Mono"', '"JetBrains Mono"', 'Menlo', 'monospace'],
+        poppins:   ['"Poppins"', 'sans-serif'],
       },
       fontSize: {
         'hero':  ['clamp(3.5rem, 9vw, 8rem)', { lineHeight: '0.92', letterSpacing: '-0.02em' }],

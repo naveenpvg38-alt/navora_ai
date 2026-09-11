@@ -58,7 +58,7 @@ html.dark {
     /* Remove fixed attachment on mobile — causes rendering bugs on iOS */
     background-attachment: scroll;
     color: #F1F5F9;
-    font-family: 'Poppins', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Space Grotesk', 'Poppins', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -70,20 +70,32 @@ html.dark {
 
   .font-display,
   h1.display, h2.display {
-    font-family: 'Outfit', 'Poppins', sans-serif !important;
+    font-family: 'Clash Display', 'Outfit', 'Poppins', sans-serif !important;
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
 
+  .font-clash {
+    font-family: 'Clash Display', 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
+  }
+
+  .font-unbounded {
+    font-family: 'Unbounded', sans-serif !important;
+  }
+
+  .font-space-mono {
+    font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
+  }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', 'Poppins', sans-serif;
+    font-family: 'Clash Display', 'Outfit', 'Poppins', sans-serif;
     font-weight: 700;
     letter-spacing: -0.015em;
     line-height: 1.25;
   }
 
-  .font-mono { font-family: 'JetBrains Mono', monospace !important; }
+  .font-mono { font-family: 'Space Mono', 'JetBrains Mono', monospace !important; }
 
   /* Instant touch feedback — no 300ms delay */
   button, a, [role="button"], input[type="submit"] {
